@@ -1,0 +1,15 @@
+{
+  "title": "Triage docs",
+  "pages": [
+    "---Getting started---",
+    "index",
+    "quickstart",
+    "open-a-program",
+    "---Concepts---",
+    "...concepts",
+    "---Reference---",
+    "...reference",
+    "---More---",
+    "...more"
+  ]
+}

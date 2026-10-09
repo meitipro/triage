@@ -1,0 +1,134 @@
+---
+title: 'Quickstart: file your first report'
+description: File a report with the stake, follow it through the judge and withdraw the reward, in about five minutes.
+---
+
+<Callout type="warn" title="Warning">Reports are public. Send security vulnerabilities to the program's private contact, never as a report.</Callout>
+
+## File a report with the stake
+
+<Steps>
+  <Step>
+    Open [Programs](/programs) and pick one. Read its scope: what the team wants feedback on, what it excludes, and the
+    terms in one line (reward, stake, reports a week per tester).
+  </Step>
+  <Step>
+    Press **File a report** and choose the kind: **Bug**, **Usability** or **Idea**. Each kind has guided fields. For a
+    bug: steps to reproduce, the expected result, the actual result and the environment. These are what make a report
+    actionable; the language you write in is never judged.
+  </Step>
+  <Step>
+    Check **Similar accepted reports** on the right. It is a title search, a hint rather than the judge, and it saves an
+    honest tester a wasted report.
+  </Step>
+  <Step>
+    Press **File with 1 GEN stake** (the program's stake). The site walks you through connecting a wallet, switching to
+    Studio Next (chain 61997) and getting free test GEN, then asks you to sign. Filing reserves one reward from the pool
+    for your report.
+  </Step>
+</Steps>
+
+## Read the verdict
+
+Your report's page offers **Ask the validators**. Reports in a program are judged in the order they were filed, so if
+an earlier report is still waiting the button says **Judge #N first**; anyone may press it. The page shows "Validators
+are triaging" with the transaction link, and about a minute later the verdict, the leader's one-line summary and reason,
+and what happened to the money.
+
+The same two steps from a script, with genlayer-js. This file runs as it is in the repository:
+
+{/* include: web/examples/file-a-report.mjs */}
+```js title="web/examples/file-a-report.mjs"
+/**
+ * File a report with the stake and ask the validators, with genlayer-js and a wallet.
+ *
+ *   node examples/file-a-report.mjs <account name> <program id> <kind> <title> <body file>
+ *
+ * In a browser the provider is window.ethereum and the account is the one the
+ * wallet connected. Here a stand-in wallet signs for a local test account, so
+ * the same code runs from a terminal. This file is the sample on the docs page
+ * "Quickstart", copied in by scripts/gen_docs.py.
+ */
+import { readFileSync } from 'node:fs';
+
+import { createClient } from 'genlayer-js';
+import { studioDevnet } from 'genlayer-js/chains';
+
+import { standinWallet } from '../scripts/standin-wallet.mjs';
+
+const TRIAGE = '0x17c378994ebdF51ca536A8020dC04129F3612373';
+const chain = { ...studioDevnet, id: 61997, rpcUrls: { default: { http: ['https://studio-next.genlayer.com/api'] } } };
+
+const [name = 'docs_example', program = '1', kind = 'bug', title, file] = process.argv.slice(2);
+const { address, provider } = standinWallet(name); // browser: window.ethereum
+const client = createClient({ chain, account: address, provider });
+
+async function read(functionName, args) {
+  return JSON.parse(await client.readContract({ address: TRIAGE, functionName, args }));
+}
+
+/** One write: a fee deposit from the SDK's estimate, then the success test. */
+async function write(functionName, args, value = 0n, rotations = 1) {
+  const estimate = await client.estimateTransactionFees({
+    leaderTimeunitsAllocation: 600,
+    validatorTimeunitsAllocation: 600,
+    totalMessageFees: 0,
+    rotations: [rotations],
+  });
+  const hash = await client.writeContract({
+    address: TRIAGE,
+    functionName,
+    args,
+    value,
+    fees: { distribution: estimate.distribution, feeValue: estimate.feeValue },
+  });
+  const receipt = await client.waitForTransactionReceipt({ hash, waitUntil: 'decided', interval: 4000, retries: 120 });
+  const leader = receipt.consensus_data.leader_receipt[0];
+  // ACCEPTED is not success on its own: a refusal is accepted too. Check the result.
+  if (leader.execution_result !== 'SUCCESS' || leader.result.status !== 'return') {
+    throw new Error(`${functionName} refused: ${JSON.stringify(leader.result.payload)}`);
+  }
+  return { hash, returned: leader.result.payload.readable };
+}
+
+// 1. File the report with exactly the program's stake. Filing reserves one reward.
+const terms = await read('get_program', [Number(program)]);
+const filed = await write('submit', [Number(program), kind, title, readFileSync(file, 'utf8')], BigInt(terms.stake));
+const id = Number(filed.returned);
+
+// 2. Ask the validators. Reports are judged in filing order: judge an earlier one first if it is waiting.
+let next = (await read('get_report', [id])).next_to_judge;
+while (next && next !== id) {
+  await write('judge', [next], 0n, 3);
+  next = (await read('get_report', [id])).next_to_judge;
+}
+const judged = await write('judge', [id], 0n, 3);
+
+// 3. Read the verdict back from the contract.
+const report = await read('get_report', [id]);
+console.log(
+  JSON.stringify({
+    report: id,
+    verdict: report.status,
+    duplicate_of: report.duplicate_of,
+    summary: report.summary,
+    credited: report.credited,
+    submit: filed.hash,
+    judge: judged.hash,
+  }),
+);
+```
+{/* end include */}
+
+It prints one JSON line: the report id, the verdict and duplicate link as the contract stored them, the leader's
+summary, what was credited, and the two transaction hashes.
+
+## Withdraw
+
+Open [My reports](/me). It lists your reports, their verdicts and your acceptance rate. Your balance holds every stake
+refunded, every reward and every bonus; **Withdraw** sends all of it to your wallet in one transaction. The GEN arrives
+when the transaction is final.
+
+## Open a program
+
+Running a beta or a testnet campaign? [Open a program](/docs/open-a-program).

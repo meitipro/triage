@@ -1,0 +1,55 @@
+---
+title: Open a program
+description: Write the scope once, set the reward, the stake and the cap, fund the pool, and read a clean queue.
+---
+
+## Write the scope
+
+The scope is at most 1,200 characters and it cannot change during the program; a new scope means a new program. Name
+three things:
+
+1. **What you want feedback on.** Features, platforms, networks: "Swaps, token approvals and the fee preview on Base
+   and Arbitrum, in the web and mobile apps."
+2. **What is excluded.** "Not in scope: partner bridges, price feeds, and anything about the token or airdrop."
+   Validators label anything outside the scope OUT OF SCOPE, and the tester keeps the stake.
+3. **Where security issues go.** Reports are public, so a vulnerability must never be filed: "Security issues go to
+   security@yourteam.example, never here."
+
+See [Scope and what it excludes](/docs/concepts/scope).
+
+## Set the terms
+
+| Term | What it does |
+|---|---|
+| Reward | Paid to the tester of every actionable report, on top of their stake back |
+| Stake | What every report carries; only a low-effort report loses it, to the pool |
+| Weekly cap | Reports one tester may file in this program each week, 1 to 20 |
+| Duration | 1 to 120 days; 0 opens a one-hour trial, for walking the whole flow in one sitting |
+| First funding | Sent with the transaction, at least one reward |
+
+A reward of 8 GEN with a stake of 1 GEN is the spec's example. A higher stake prices out farming faster and asks more of
+honest testers; a lower one does the opposite.
+
+## Fund the pool
+
+Each filed report reserves one reward from the pool, so a report is never judged actionable against an empty pool. When
+the pool cannot reserve another reward, filing is refused until somebody tops it up; **anyone** can, from the program
+page. Lost stakes from low-effort reports join the pool too.
+
+## Read the queue
+
+The program page opens on the **Queue**: only actionable reports, newest first, with their kind and any bonus. The other
+tabs hold the full record: duplicates with their links, out of scope, low effort (struck through), and reports still
+waiting for the judge. **Export** downloads the queue for your tracker; see [Queue export for trackers](/docs/reference/queue-export).
+
+You never judge. Anyone, you included, may ask the validators to judge the next waiting report.
+
+## Tip bonuses
+
+Every actionable report earns the same reward. To reward an important one, open it and use **Tip a bonus**; the GEN goes
+straight to the tester's balance. Only the program's team can tip.
+
+## Close
+
+Once the program has ended and every report has been judged, **Close the program** returns the unused pool to the
+team's wallet. Testers keep their balances after a close and can withdraw at any time.

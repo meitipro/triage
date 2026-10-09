@@ -1,0 +1,69 @@
+---
+title: Queue export for trackers
+description: Every actionable report of a program, as JSON or CSV, with the transactions that filed and judged it.
+---
+
+The queue is the list a team works from: the program's actionable reports, newest first. It is read from the contract
+with `list_reports(program_id, "ACTIONABLE", offset, limit)`, which returns the body with every row.
+
+## From the site
+
+| Request | Returns |
+|---|---|
+| `GET /api/export/<program id>` | JSON: the program, the contract, the network and every item |
+| `GET /api/export/<program id>?format=csv` | CSV, one row per report, ready to import into a tracker |
+
+The **Export** button on a program page downloads the JSON.
+
+Each item:
+
+| Field | What it is |
+|---|---|
+| `id` | The report id on the contract |
+| `url` | The report's page on the site |
+| `kind` | `bug`, `usability` or `idea` |
+| `title`, `body` | The report exactly as the tester filed it |
+| `summary` | The one line the leader wrote when the report was accepted |
+| `tester` | The account that filed it and put up the stake |
+| `filed_at`, `judged_at` | ISO 8601, from the transaction times the contract stored |
+| `bonus_wei` | Bonuses the team tipped, in wei, as a decimal string |
+| `submit_tx`, `judge_tx` | The transactions that filed and judged it |
+
+The transaction hashes come from the explorer's index of the contract; when the explorer does not answer they are empty
+strings, and everything else still comes from the contract.
+
+## From the chain, with no site
+
+Reads need no wallet. With genlayer-py, a throwaway account does the reading. This file runs as it is in the repository:
+
+{/* include: web/examples/read_queue.py */}
+```python title="web/examples/read_queue.py"
+"""
+Read a program's queue of actionable reports with genlayer-py, no wallet needed.
+
+    python web/examples/read_queue.py <program id>
+
+genlayer-py reads through an account, so a throwaway one is made and never
+funded. This file is the sample on the docs page "Queue export for trackers",
+copied in by scripts/gen_docs.py.
+"""
+
+import json
+import sys
+
+from genlayer_py import create_account, create_client
+from genlayer_py.chains import studio_devnet
+
+TRIAGE = "0x17c378994ebdF51ca536A8020dC04129F3612373"
+studio_devnet.rpc_urls = {"default": {"http": ["https://studio-next.genlayer.com/api"]}}
+
+program = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+client = create_client(chain=studio_devnet, account=create_account())
+page = json.loads(client.read_contract(address=TRIAGE, function_name="list_reports", args=[program, "ACTIONABLE", 0, 50]))
+for report in page["items"]:
+    print(f"#{report['id']}  [{report['kind']}]  {report['title']}  ({report['summary']})")
+print(f"{page['total']} actionable report(s) in program {program}")
+```
+{/* end include */}
+
+Pages hold at most 50 reports; pass a larger `offset` for the next page. `total` is the queue's length.

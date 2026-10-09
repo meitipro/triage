@@ -1,0 +1,38 @@
+---
+title: Scope and what it excludes
+description: The text every report is judged against, fixed for the life of a program.
+---
+
+The scope is the team's written answer to "what do you want feedback on?". Validators read every report against it,
+word for word, so it decides the OUT OF SCOPE label more than anything else.
+
+## What a good scope says
+
+- **What is in.** The features, platforms and networks the team will act on.
+- **What is out.** Anything a tester might reasonably think is covered but is not: a partner's service, a feature that
+  is not finished, the token.
+- **Where security issues go.** Reports are public on chain. A scope that does not name a private channel invites
+  testers to post vulnerabilities where everyone can read them.
+
+The spec's example:
+
+```text
+Swaps, token approvals and the fee preview on Base and Arbitrum, in the web and mobile apps. Not in scope: partner
+bridges, price feeds, and anything about the token or airdrop. Security issues go to security@orrin.xyz, never here.
+```
+
+## Fixed for the life of the program
+
+`open_program` stores the scope and nothing can change it. Testers stake on the rules as they read them, so the rules
+cannot move under them. A new scope means a new program, with its own pool and its own queue.
+
+## Limits
+
+At most 1,200 characters, enough for a paragraph on what is in and one on what is out. The scope is fenced at the
+prompt boundary like every other text a caller wrote: a `<` or `>` in it reaches the model as `(` or `)`, so it cannot
+close its own block.
+
+## How out of scope settles
+
+A report about something the scope excludes or does not cover is OUT OF SCOPE. The tester gets the stake back: misreading
+a scope is an honest mistake, not farming. The reward reserved for the report returns to the pool.

@@ -1,0 +1,52 @@
+---
+title: Stakes, rewards and the pool
+description: Where every wei sits from filing to withdrawal, and why the pool can never pay out more than it holds.
+---
+
+## Four places money sits
+
+| Where | What is in it |
+|---|---|
+| **Pool** | Funding not yet promised to any report, plus stakes lost by low-effort reports |
+| **Reserved** | One reward for every report waiting for the judge |
+| **Stakes held** | The stake of every report waiting for the judge |
+| **Balances** | What each tester can withdraw: stakes back, rewards, bonuses |
+
+The contract always holds exactly the sum of these four. The test suite checks that after every step of a random mix of
+filings, verdicts, top-ups, bonuses and withdrawals, and that a program run to its close pays out exactly what came in.
+
+## Reserve on submit
+
+`submit` takes exactly the program's stake and moves one reward from the pool to reserved. If the pool cannot reserve
+another reward, filing is refused until somebody tops it up. So a report is never judged actionable against an empty
+pool, and the team cannot spend the pool in a way that leaves an accepted report unpaid.
+
+## Settle on judge
+
+| Label | Stake | Reserved reward |
+|---|---|---|
+| ACTIONABLE | to the tester's balance | to the tester's balance |
+| DUPLICATE | to the tester's balance | back to the pool |
+| OUT OF SCOPE | to the tester's balance | back to the pool |
+| LOW EFFORT | to the pool | back to the pool |
+
+`judge` never sends money anywhere. On consensus v0.6 a transfer can only be funded at the root of the transaction that
+starts it, so every payout is its own top-level call.
+
+## Money out
+
+- **`withdraw()`** sends the caller's whole balance to the caller.
+- **`bonus(report_id)`** is payable: the team sends GEN with it and it lands in the tester's balance.
+- **`close(program_id)`** sends the unused pool to the team, once the program has ended and every report is judged.
+
+## The weekly cap
+
+A tester can file at most the program's weekly cap of reports, 1 to 20 as the team sets it. The week is the contract's
+own: transaction time in seconds since 1970, divided by 604,800, the same on every validator. The cap limits volume even
+before the stake does.
+
+## Why this stops farming
+
+Filing a thousand generic reports costs a thousand stakes, and every one of them that comes back LOW EFFORT stays in the
+pool, where it pays the testers whose reports were actionable. Honest mistakes cost nothing: duplicates and out-of-scope
+reports get their stake back.

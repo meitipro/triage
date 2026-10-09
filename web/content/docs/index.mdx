@@ -1,0 +1,54 @@
+---
+title: Introduction
+description: Feedback programs that pay for signal, not noise.
+---
+
+Triage is a feedback and bug report program on GenLayer. A team funds a program and writes its scope, testers stake a
+little on each report, GenLayer validators read every report against the scope and the reports already accepted, and
+only specific, new, in-scope reports are paid, while low-effort farming loses its stake.
+
+<Callout type="warn" title="Warning">
+  Reports are public on chain. Send security vulnerabilities to the program's private contact, never as a report.
+</Callout>
+
+## One report, start to finish
+
+A tester files *"Swap button stays disabled after approving USDC"* with steps, the expected and the actual result, and
+the program's stake. Filing reserves one reward from the pool. Validators read the report against the program's scope
+and its last 25 accepted reports, and agree on one of four labels:
+
+| Label | What it means | The stake | The reward |
+|---|---|---|---|
+| ACTIONABLE | Specific, reproducible or clearly reasoned, in scope, and not already accepted | back to the tester | to the tester |
+| DUPLICATE | The same issue as an accepted report, which it names | back to the tester | back to the pool |
+| OUT OF SCOPE | About something the scope excludes or does not cover | back to the tester | back to the pool |
+| LOW EFFORT | Vague, generic, no specifics, or a list of unconnected suggestions | to the pool | back to the pool |
+
+An actionable report joins the team's queue. The tester withdraws the stake and the reward whenever they like.
+
+## Why it needs GenLayer
+
+The decision is a reading judgment: is this report specific enough to act on, is it new compared with what was already
+accepted, and is it inside the scope the team wrote? The team paying has a reason to say no, testers have a reason to
+game any fixed rule, and a single model can be gamed by whoever learns its quirks. On GenLayer several validators apply
+the same public rubric, and a report is paid only when they agree.
+
+The stake does the rest. Honest mistakes such as duplicates and out-of-scope reports get the stake back, only low-effort
+reports lose it, so a farmer submitting thousands of generic reports loses money on each one, while the pool that pays
+real testers grows.
+
+## What Triage is not
+
+- **Not a bug tracker.** It feeds one: the queue exports as JSON or CSV.
+- **Not a security bounty.** Critical vulnerabilities go through a private disclosure channel, which the scope names.
+- **Not severity scoring.** Every actionable report earns the same reward; the team tips bonuses for important ones.
+- **Not private.** Reports are public, so a scope must not invite sensitive details.
+
+## Where to go next
+
+<Cards>
+  <Card title="Quickstart" href="/docs/quickstart" description="File your first report, read the verdict, withdraw." />
+  <Card title="Open a program" href="/docs/open-a-program" description="Write a scope, set the terms, fund the pool." />
+  <Card title="The four labels" href="/docs/concepts/the-four-labels" description="What each verdict means and does." />
+  <Card title="Evaluation" href="/docs/more/evaluation" description="The golden cases through real consensus, with transactions." />
+</Cards>

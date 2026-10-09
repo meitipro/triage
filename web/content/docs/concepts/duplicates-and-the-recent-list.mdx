@@ -1,0 +1,44 @@
+---
+title: Duplicates and the recent list
+description: How the judge knows what was already accepted, why reports are judged in filing order, and the honest limit.
+---
+
+## The recent list
+
+Every prompt carries the program's last 25 accepted reports, newest first, one line each. Two lines from the golden
+program, exactly as the contract stored them:
+
+```text
+5: Swap button stays disabled after approving USDC, On Base web, the swap button remains disabled after USDC approval until the page is reloaded.
+1: Token search misses tickers typed in lowercase, Token search in swap picker fails for lowercase tickers like 'usdc' but works for 'USDC' on Base web/iOS.
+```
+
+The id, the tester's title and the one-line summary the leader wrote when the report was accepted. The contract builds
+the list from storage, so every validator reads the same lines, and the summaries keep it short and consistent.
+
+## Agreeing on the id
+
+A DUPLICATE names the id it repeats, and validators compare that id as well as the label: two validators who agree it is
+a duplicate of different reports have not agreed. The id must be one of the 25 shown. A model that names any other id,
+or none, has not given a usable answer; it is retried once and then the round fails, so the report stays waiting rather
+than settling on a guess.
+
+## Filing order
+
+Reports in a program are judged in the order they were filed. Without that rule, a farmer could copy a report the
+moment it was filed, ask the validators to judge the copy first, and take the reward while the original came back
+DUPLICATE. With it, the original is always judged before any copy, and the copy is the one labelled DUPLICATE.
+
+The cost is that a report waits for the ones filed before it. Anyone may ask the validators to judge the next one, so
+nothing waits on the team or on a tester who walked away.
+
+## The honest limit
+
+Only 25 accepted reports are shown, to keep the prompt small. A copy of an older report can be judged actionable, and
+the tester keeps the reward. That is the honest cost of a short prompt. The team sees the overlap in its own queue, and
+the evaluation publishes a partial-overlap case exactly as it came out.
+
+## Before filing
+
+The file-a-report page searches the accepted titles as you type and lists similar reports. It is a hint, not the judge,
+and it saves honest testers a wasted report.
