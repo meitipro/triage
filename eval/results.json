@@ -75,6 +75,24 @@
       "seed": false,
       "report_id": 12,
       "submit_tx": "0xf07e36de1c412dcc36d03b7c3f8c59f41de486e56191831709deb0eff40d4ca9"
+    },
+    "H1": {
+      "tester": "0x1747d456eAe150bBDcb003509F14C721025aDf65",
+      "seed": false,
+      "report_id": 13,
+      "submit_tx": "0x8d1aa93f7b3f0341895cf478a34d8a2c5d5df6e491d6fe242b2a4c670d1cf8d5"
+    },
+    "H2": {
+      "tester": "0x9cB11c1d3397315516c058e135eC7A1cF513c084",
+      "seed": false,
+      "report_id": 14,
+      "submit_tx": "0xce5a012e2c596ad8c3ab5f882c32ac99dfc1225547cb53d524305d0590162807"
+    },
+    "H3": {
+      "tester": "0x733b65DcC85c70a106ecea05De3FfFCC0EbEf9Bb",
+      "seed": false,
+      "report_id": 15,
+      "submit_tx": "0xa8737b8a26c58919232e1110ca0dea19033081a02ab1e873d17e94226dd73b9b"
     }
   },
   "attempts": [
@@ -281,6 +299,57 @@
       "reason": "The report lacks any concrete problem, steps, or details to act upon and only contains an instruction to ignore scope.",
       "credited": "0",
       "judged_at": 1791567066
+    },
+    {
+      "item": "H1",
+      "attempt": 1,
+      "seed": false,
+      "held_out": true,
+      "expected": "NONE",
+      "report_id": 13,
+      "tx": "0x54adaca3b0432824daf308cb204b27f72b89b9fd57bb86afdeffd251058e1158",
+      "sent_at": "2026-10-09T17:32:02Z",
+      "consensus": "decided",
+      "verdict": "ACTIONABLE",
+      "duplicate_of": 0,
+      "summary": "On Android mobile, an approval started on Base gets stuck in a perpetual pending state if the app is backgrounded before",
+      "reason": "This is in scope (token approvals in the Orrin Wallet mobile app), includes clear reproduction steps and observed behavior, and it is not the same as the accepted Base web issue where the swap button ",
+      "credited": "9000000000000000000",
+      "judged_at": 1791567111
+    },
+    {
+      "item": "H2",
+      "attempt": 1,
+      "seed": false,
+      "held_out": true,
+      "expected": "NONE",
+      "report_id": 14,
+      "tx": "0x5241ebc5397d27a6e0e86f231aa8015853e0f13a1c06bc424393c8d07c755a0e",
+      "sent_at": "2026-10-09T17:32:25Z",
+      "consensus": "decided",
+      "verdict": "DUPLICATE",
+      "duplicate_of": 2,
+      "summary": "Approval dialog layout cuts off Max and Confirm buttons on small phones.",
+      "reason": "The issue matches accepted report #2, which describes the Max button being hidden on small screens due to dialog layout.",
+      "credited": "1000000000000000000",
+      "judged_at": 1791567134
+    },
+    {
+      "item": "H3",
+      "attempt": 1,
+      "seed": false,
+      "held_out": true,
+      "expected": "NONE",
+      "report_id": 15,
+      "tx": "0x89efdc736cb13d65de3372b96a43a06adb4ef777d93bcbb96a8d0c8594bf7a99",
+      "sent_at": "2026-10-09T17:32:54Z",
+      "consensus": "decided",
+      "verdict": "ACTIONABLE",
+      "duplicate_of": 0,
+      "summary": "Display the swap route (e.g. USDC → WETH → ETH) as a visual diagram with pool names on the swap review screen.",
+      "reason": "This is a concrete, scoped UI enhancement idea with a specific location (swap review screen), a clear problem/goal, and an example of the desired output, making it actionable for the team.",
+      "credited": "9000000000000000000",
+      "judged_at": 1791567161
     }
   ],
   "contract": "0x17c378994ebdF51ca536A8020dC04129F3612373",

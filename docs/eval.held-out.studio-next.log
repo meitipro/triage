@@ -1,0 +1,23 @@
+
+H1 A real bug with steps but no expected result (expected NONE)
+  submit 0x8d1aa93f7b3f0341895cf478a34d8a2c5d5df6e491d6fe242b2a4c670d1cf8d5
+  filed as report 13  https://explorer-studio-dev.genlayer.com/tx/0x8d1aa93f7b3f0341895cf478a34d8a2c5d5df6e491d6fe242b2a4c670d1cf8d5
+  judge 0x54adaca3b0432824daf308cb204b27f72b89b9fd57bb86afdeffd251058e1158
+  HELD  ACTIONABLE  This is in scope (token approvals in the Orrin Wallet mobile app), includes clear reproduction steps and observed behavior, and it is not the same as the accepted Base web issue where the swap button 
+  https://explorer-studio-dev.genlayer.com/tx/0x54adaca3b0432824daf308cb204b27f72b89b9fd57bb86afdeffd251058e1158
+
+H2 A report that partly overlaps accepted seed S2 (expected NONE)
+  submit 0xce5a012e2c596ad8c3ab5f882c32ac99dfc1225547cb53d524305d0590162807
+  filed as report 14  https://explorer-studio-dev.genlayer.com/tx/0xce5a012e2c596ad8c3ab5f882c32ac99dfc1225547cb53d524305d0590162807
+  judge 0x5241ebc5397d27a6e0e86f231aa8015853e0f13a1c06bc424393c8d07c755a0e
+  HELD  DUPLICATE of 2  The issue matches accepted report #2, which describes the Max button being hidden on small screens due to dialog layout.
+  https://explorer-studio-dev.genlayer.com/tx/0x5241ebc5397d27a6e0e86f231aa8015853e0f13a1c06bc424393c8d07c755a0e
+
+H3 A concrete idea with a weak reason (expected NONE)
+  submit 0xa8737b8a26c58919232e1110ca0dea19033081a02ab1e873d17e94226dd73b9b
+  filed as report 15  https://explorer-studio-dev.genlayer.com/tx/0xa8737b8a26c58919232e1110ca0dea19033081a02ab1e873d17e94226dd73b9b
+  judge 0x89efdc736cb13d65de3372b96a43a06adb4ef777d93bcbb96a8d0c8594bf7a99
+  HELD  ACTIONABLE  This is a concrete, scoped UI enhancement idea with a specific location (swap review screen), a clear problem/goal, and an example of the desired output, making it actionable for the team.
+  https://explorer-studio-dev.genlayer.com/tx/0x89efdc736cb13d65de3372b96a43a06adb4ef777d93bcbb96a8d0c8594bf7a99
+
+wrote eval/results.md: golden 9/9, held out run 3/3

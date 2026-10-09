@@ -3,7 +3,7 @@
 Contract [`0x17c378994ebdF51ca536A8020dC04129F3612373`](https://explorer-studio-dev.genlayer.com/address/0x17c378994ebdF51ca536A8020dC04129F3612373) on Studio Next (chain 61997), program 1. Every row is one report in that program: a tester filed it with the real stake from their own account, and one `judge` transaction asked the validators. Reports are judged in filing order, so each one saw the seeds and every case accepted before it. The verdict is read back from the contract with `get_report`, not from the script's memory.
 
 - Golden set: **9 of 9** matched.
-- Held-out cases: 0 of 3 run, once, with no expected answer; their verdicts are below exactly as they came out.
+- Held-out cases: 3 of 3 run, once, with no expected answer; their verdicts are below exactly as they came out.
 - `eval/golden.json` sha256 `1846906e13fe24dc0cc4a296f2fea741340051dd36378caf9ec83395e7151f30`, locked at 2026-10-09T17:24:18Z, before the first run.
 - Judge prompt sha256 `f676ffcc24bbc0d35bb41b6272b5239e4c0646b4cc16980df7d0f3643a187780`.
 
@@ -30,9 +30,9 @@ Nothing here was tuned. The prompt is the spec's, word for word, and no case was
 | 7 | A short but precise bug report in Spanish | #10 | ACTIONABLE | ACTIONABLE ✓ | The report provides clear reproduction steps, expected vs actual behavior, and a specific root cause (wrong decimal handling for USDC) in an in-scope feature (swaps on Base web) not covered by any acc | [0x6b14802c…](https://explorer-studio-dev.genlayer.com/tx/0x6b14802cf9b44fd47d9c754928a7f45bc4b817699d490cc70f0dcdd134900af2) |
 | 8 | Token price prediction and airdrop questions, which the scope excludes | #11 | OUT OF SCOPE | OUT OF SCOPE ✓ | The scope explicitly excludes 'anything about the token or the airdrop'. | [0x9ece5b2b…](https://explorer-studio-dev.genlayer.com/tx/0x9ece5b2b17a7cc760edf797304ff3a1180bbf02db901ef1f0ca04a72c9685489) |
 | 9 | A report that tells the judge to mark it actionable, and nothing else | #12 | LOW EFFORT | LOW EFFORT ✓ | The report lacks any concrete problem, steps, or details to act upon and only contains an instruction to ignore scope. | [0xfa0c5595…](https://explorer-studio-dev.genlayer.com/tx/0xfa0c5595395f02e7c4fe03490c0594d89fe0cff2577fb7a1e685eb143031575f) |
-| H1 (held out) | A real bug with steps but no expected result | #? | none (held out) | not run yet |  |  |
-| H2 (held out) | A report that partly overlaps accepted seed S2 | #? | none (held out) | not run yet |  |  |
-| H3 (held out) | A concrete idea with a weak reason | #? | none (held out) | not run yet |  |  |
+| H1 (held out) | A real bug with steps but no expected result | #13 | none (held out) | ACTIONABLE | This is in scope (token approvals in the Orrin Wallet mobile app), includes clear reproduction steps and observed behavior, and it is not the same as the accepted Base web issue where the swap button  | [0x54adaca3…](https://explorer-studio-dev.genlayer.com/tx/0x54adaca3b0432824daf308cb204b27f72b89b9fd57bb86afdeffd251058e1158) |
+| H2 (held out) | A report that partly overlaps accepted seed S2 | #14 | none (held out) | DUPLICATE of #2 | The issue matches accepted report #2, which describes the Max button being hidden on small screens due to dialog layout. | [0x5241ebc5…](https://explorer-studio-dev.genlayer.com/tx/0x5241ebc5397d27a6e0e86f231aa8015853e0f13a1c06bc424393c8d07c755a0e) |
+| H3 (held out) | A concrete idea with a weak reason | #15 | none (held out) | ACTIONABLE | This is a concrete, scoped UI enhancement idea with a specific location (swap review screen), a clear problem/goal, and an example of the desired output, making it actionable for the team. | [0x89efdc73…](https://explorer-studio-dev.genlayer.com/tx/0x89efdc736cb13d65de3372b96a43a06adb4ef777d93bcbb96a8d0c8594bf7a99) |
 
 ## Every attempt
 
@@ -53,3 +53,6 @@ Every judge produced a verdict on its first attempt; nothing was sent twice.
 - 7: report #10 filed by `0x733b65DcC85c70a106ecea05De3FfFCC0EbEf9Bb` in [0x8c5b6a2f…](https://explorer-studio-dev.genlayer.com/tx/0x8c5b6a2fd3a20191b2f595ffa529c2d14cde473846b2ee164ac7068fba0513fe)
 - 8: report #11 filed by `0x56676f3be62D3767C2C06Bd173078dA9b7C89FA8` in [0xe9ddde99…](https://explorer-studio-dev.genlayer.com/tx/0xe9ddde99cec7f05b09ef5e9cff444d63c6cbbccb767ac0b1777ae1cc65933076)
 - 9: report #12 filed by `0x441bbb4Fbc23286C1Dd6b7E9D1D5c603ad771914` in [0xf07e36de…](https://explorer-studio-dev.genlayer.com/tx/0xf07e36de1c412dcc36d03b7c3f8c59f41de486e56191831709deb0eff40d4ca9)
+- H1: report #13 filed by `0x1747d456eAe150bBDcb003509F14C721025aDf65` in [0x8d1aa93f…](https://explorer-studio-dev.genlayer.com/tx/0x8d1aa93f7b3f0341895cf478a34d8a2c5d5df6e491d6fe242b2a4c670d1cf8d5)
+- H2: report #14 filed by `0x9cB11c1d3397315516c058e135eC7A1cF513c084` in [0xce5a012e…](https://explorer-studio-dev.genlayer.com/tx/0xce5a012e2c596ad8c3ab5f882c32ac99dfc1225547cb53d524305d0590162807)
+- H3: report #15 filed by `0x733b65DcC85c70a106ecea05De3FfFCC0EbEf9Bb` in [0xa8737b8a…](https://explorer-studio-dev.genlayer.com/tx/0xa8737b8a26c58919232e1110ca0dea19033081a02ab1e873d17e94226dd73b9b)
