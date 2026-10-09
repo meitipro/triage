@@ -1,0 +1,22 @@
+{
+  "ui_walk": {
+    "wallet": "0x52836a71f5e2bc8A2A0F8f14ff640525f9A34254",
+    "report_id": 24,
+    "txs": {
+      "submit #24 from the File a report form": "0xe5a10af48bbea9a56bb0f2a7d5d15a70020ed95bb482009ce0c7716bfc0289b4",
+      "judge #24 from Ask the validators": "0x238482fcb2f7a8e553c524c100ecbd6da59b85daa1ab7e75b35c6edf3add0257",
+      "withdraw 9 GEN from My reports": "0xf1a5262e0063165d4b69e52f8cd1970b038abc4c50a769a5e3646fda7f5d7fa2"
+    },
+    "expected_balance_wei": "27999714896499991531",
+    "balance_wei": "27999714896499991531"
+  },
+  "docs_sample": {
+    "script": "web/examples/file-a-report.mjs",
+    "report_id": 25,
+    "verdict": "ACTIONABLE",
+    "txs": {
+      "submit #25 from the docs sample": "0x797aef394e47f21cadeb7b293a1a700f989f3382586d9a5a2e8325cb0727f13d",
+      "judge #25 from the docs sample": "0xb44bbe0038d8051b6b6deec0793980ec248c88184818b6eb13739c0dd9b88de8"
+    }
+  }
+}
