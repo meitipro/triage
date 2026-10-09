@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { FundBox, JudgeNext, TeamBox } from '@/components/ProgramActions';
+import { CapLeft, FundBox, JudgeNext, TeamBox } from '@/components/ProgramActions';
 import { Addr, Empty, Initials, KindTag, ReadError, StatusBadge, Tx } from '@/components/ui';
 import { txIndex } from '@/lib/explorer';
 import { day, dayTime, gen, plural } from '@/lib/format';
@@ -111,9 +111,14 @@ export default async function ProgramPage({ params, searchParams }: { params: Pr
                 {f.label} <span className="mono c-faint">{count(p, f.status)}</span>
               </Link>
             ))}
-            <a className="c-btn small ghost ml-auto" href={`/api/export/${p.id}`} download={`triage-program-${p.id}-queue.json`}>
-              Export
-            </a>
+            <span className="ml-auto flex gap-2">
+              <a className="c-btn small ghost" href={`/api/export/${p.id}?format=csv`} download={`triage-program-${p.id}-queue.csv`}>
+                Export CSV
+              </a>
+              <a className="c-btn small ghost" href={`/api/export/${p.id}`} download={`triage-program-${p.id}-queue.json`}>
+                JSON
+              </a>
+            </span>
           </div>
           <div className="c-card mt-3">
             {page.items.length ? (
@@ -183,9 +188,12 @@ export default async function ProgramPage({ params, searchParams }: { params: Pr
             </dl>
           </div>
           {!p.closed && !ended && (
-            <Link href={`/p/${p.id}/report`} className="c-btn solid wide">
-              File a report
-            </Link>
+            <div className="flex flex-col gap-1.5">
+              <Link href={`/p/${p.id}/report`} className="c-btn solid wide">
+                File a report
+              </Link>
+              <CapLeft program={p} />
+            </div>
           )}
           <JudgeNext program={p} title={nextTitle} />
           <TeamBox program={p} />

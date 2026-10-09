@@ -67,3 +67,11 @@ export function initials(title: string): string {
   const words = title.replace(/[^A-Za-z0-9 ]/g, ' ').split(/\s+/).filter(Boolean);
   return ((words[0]?.[0] ?? '') + (words[1]?.[0] ?? '')).toUpperCase() || 'P';
 }
+
+/**
+ * The contract stores a leader's summary and reason cut at a fixed length
+ * (120 and 200 characters), sometimes mid-word. Show that it was cut.
+ */
+export function capped(text: string, limit: number): string {
+  return text.length >= limit ? text.trimEnd() + '…' : text;
+}

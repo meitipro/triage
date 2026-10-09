@@ -54,14 +54,21 @@ import { readFileSync } from 'node:fs';
 import { createClient } from 'genlayer-js';
 import { studioDevnet } from 'genlayer-js/chains';
 
-import { standinWallet } from '../scripts/standin-wallet.mjs';
+import { balanceOf, ensureAccount, rpc, standinWallet } from '../scripts/standin-wallet.mjs';
 
 const TRIAGE = '0x17c378994ebdF51ca536A8020dC04129F3612373';
 const chain = { ...studioDevnet, id: 61997, rpcUrls: { default: { http: ['https://studio-next.genlayer.com/api'] } } };
 
 const [name = 'docs_example', program = '1', kind = 'bug', title, file] = process.argv.slice(2);
+ensureAccount(name); // a new name makes a fresh test account; only its address is ever shown
 const { address, provider } = standinWallet(name); // browser: window.ethereum
 const client = createClient({ chain, account: address, provider });
+
+// A fresh test account holds nothing. Studio's faucet funds it (test GEN only); the site's "Get test GEN" does the same.
+if ((await balanceOf(address)) < 3n * 10n ** 18n) {
+  await rpc('sim_fundAccount', [address, (20n * 10n ** 18n).toString()]);
+  for (let i = 0; i < 20 && (await balanceOf(address)) < 3n * 10n ** 18n; i++) await new Promise((r) => setTimeout(r, 1500));
+}
 
 async function read(functionName, args) {
   return JSON.parse(await client.readContract({ address: TRIAGE, functionName, args }));
@@ -119,6 +126,22 @@ console.log(
 );
 ```
 {/* end include */}
+
+The arguments:
+
+| Argument | What to pass |
+|---|---|
+| `account name` | A local test account in `~/.triage/accounts.json`; a new name makes a fresh one |
+| `program id` | The number in the program's URL, `/p/<id>` |
+| `kind` | Exactly `bug`, `usability` or `idea`, in lower case |
+| `title` | One line, at most 100 characters; quote it in the shell |
+| `body file` | A plain-text file holding the report itself, at most 1,500 characters. For a bug, lines such as `Steps: …`, `Expected: …`, `Actual: …` and `Environment: …`, which is what the site's form writes |
+
+For example, with the report saved as `report.txt`:
+
+```bash
+node examples/file-a-report.mjs my_tester 2 bug "Swap button stays disabled after approving USDC" report.txt
+```
 
 It prints one JSON line: the report id, the verdict and duplicate link as the contract stored them, the leader's
 summary, what was credited, and the two transaction hashes.

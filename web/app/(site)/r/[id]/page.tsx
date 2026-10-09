@@ -5,7 +5,8 @@ import { notFound } from 'next/navigation';
 import { BonusBox, JudgeBox, TesterNote } from '@/components/ReportActions';
 import { Addr, KindTag, ReadError, StatusBadge, Tx } from '@/components/ui';
 import { txIndex } from '@/lib/explorer';
-import { dayTime, gen } from '@/lib/format';
+import { capped, dayTime, gen } from '@/lib/format';
+import limits from '@/lib/contract.generated.json';
 import { getReport, readError } from '@/lib/read';
 import type { Report } from '@/lib/types';
 
@@ -111,8 +112,8 @@ export default async function ReportPage({ params, searchParams }: { params: Pro
               <div className="mt-3">
                 <StatusBadge status={r.status} duplicateOf={r.duplicate_of} />
               </div>
-              {r.summary && <p className="mt-3 font-medium">{r.summary}</p>}
-              {r.reason && <p className="c-muted mt-2 text-[14px] leading-relaxed">{r.reason}</p>}
+              {r.summary && <p className="mt-3 font-medium">{capped(r.summary, limits.limits.summary)}</p>}
+              {r.reason && <p className="c-muted mt-2 text-[14px] leading-relaxed">{capped(r.reason, limits.limits.reason)}</p>}
               <p className="c-faint mt-3 text-[12.5px]">
                 Validators agreed on the label{r.status === 'DUPLICATE' ? ' and the report it repeats' : ''}; the summary and
                 reason are the leader&apos;s. Asked by <Addr address={r.judged_by} /> on {dayTime(r.judged_at)}.

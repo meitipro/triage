@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
 import { dayTime, gen } from '@/lib/format';
-import type { TesterStats } from '@/lib/types';
+import type { NotFound, Program, TesterStats } from '@/lib/types';
 
 import { TxProgress, readFresh, useWrite } from './Actions';
 import { KindTag, StatusBadge } from './ui';
@@ -15,12 +15,18 @@ export function MePanel() {
   const { w, state, busy, run } = useWrite([]);
   const [stats, setStats] = useState<TesterStats | null>(null);
   const [error, setError] = useState('');
+  const [names, setNames] = useState<Record<number, string>>({});
 
   const load = useCallback(async () => {
     if (!w.account) return;
     try {
-      setStats(await readFresh<TesterStats>('tester_stats', [w.account]));
+      const got = await readFresh<TesterStats>('tester_stats', [w.account]);
+      setStats(got);
       setError('');
+      // Each row names its program, read once per program.
+      const ids = [...new Set(got.items.map((r) => r.program_id))];
+      const rows = await Promise.all(ids.map((id) => readFresh<Program | NotFound>('get_program', [id]).catch(() => null)));
+      setNames(Object.fromEntries(rows.filter((p): p is Program => Boolean(p?.found)).map((p) => [p.id, p.name])));
     } catch {
       setError('Studio Next did not answer this read. Try again in a moment.');
     }
@@ -79,7 +85,7 @@ export function MePanel() {
                     <span className="min-w-0">
                       <span className={`block truncate font-medium ${r.status === 'LOW_EFFORT' ? 'c-struck' : ''}`}>{r.title}</span>
                       <span className="c-faint block text-[12.5px]">
-                        program {r.program_id} · {dayTime(r.filed_at)}
+                        {names[r.program_id] ?? `program ${r.program_id}`} · {dayTime(r.filed_at)}
                         {r.credited !== '0' ? ` · ${gen(r.credited)} credited` : ''}
                         {r.bonus !== '0' ? ` · ${gen(r.bonus)} bonus` : ''}
                       </span>

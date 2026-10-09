@@ -1,12 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { dayTime, gen, toWei } from '@/lib/format';
-import type { Program } from '@/lib/types';
+import { weekOf } from '@/lib/labels';
+import type { Program, TesterStats } from '@/lib/types';
 
-import { TxProgress, useWrite } from './Actions';
+import { TxProgress, readFresh, useWrite } from './Actions';
 import { WalletGate, useWallet } from './Wallet';
 
 /** Anyone tops up a running program's pool. */
@@ -87,5 +88,33 @@ export function TeamBox({ program }: { program: Program }) {
       </WalletGate>
       <TxProgress state={state} waiting="Validators are recording the close" />
     </div>
+  );
+}
+
+/** For a connected wallet: how many reports it may still file in this program this week, read fresh from the chain. */
+export function CapLeft({ program }: { program: Program }) {
+  const w = useWallet();
+  const [left, setLeft] = useState<number | null>(null);
+  useEffect(() => {
+    if (!w.account) {
+      setLeft(null);
+      return;
+    }
+    let live = true;
+    readFresh<TesterStats>('tester_stats', [w.account])
+      .then((s) => {
+        const week = weekOf(Math.floor(Date.now() / 1000));
+        const used = s.items.filter((r) => r.program_id === program.id && r.week === week).length;
+        if (live) setLeft(Math.max(0, program.weekly_cap - used));
+      })
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, [w.account, program.id, program.weekly_cap]);
+  return (
+    <p className="c-faint text-center text-[12.5px]">
+      {left === null ? `${program.weekly_cap} reports a week per tester` : `${left} of ${program.weekly_cap} reports left this week for your wallet`}
+    </p>
   );
 }

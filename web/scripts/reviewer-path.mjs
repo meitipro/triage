@@ -56,15 +56,27 @@ async function view(functionName, args) {
   return JSON.parse(String(await retried(() => reader.readContract({ address: CONTRACT, functionName, args }), 5)));
 }
 
-/** The net fee a decided transaction cost its sender, from its own fee accounting. */
+/**
+ * What a decided transaction cost its sender, from its own fee accounting.
+ * `net` is the primary fee (paid minus refunded), which is what leaves the
+ * wallet. The message budget a payout carries is listed separately: on Studio
+ * Next its consumed part is reported in paid_fee_value but, when the sender is
+ * also the payee, is not taken from the wallet (measured on Clearance and on
+ * run rp1 here), so it is recorded and not subtracted.
+ */
 async function feeAccounting(hash) {
   const tx = await rpc('eth_getTransactionByHash', [hash]).catch(() => null);
   const acct = tx?.data?.fee_accounting;
   if (!acct) return null;
+  const primaryPaid = (acct.top_ups ?? []).reduce((sum, t) => sum + BigInt(t.primaryAmount ?? 0), 0n);
+  const primaryRefunded = (acct.refunds ?? []).reduce((sum, r) => sum + BigInt(r.primary ?? 0), 0n);
+  const messagePaid = (acct.top_ups ?? []).reduce((sum, t) => sum + BigInt(t.messageFees ?? 0), 0n);
+  const messageRefunded = (acct.refunds ?? []).reduce((sum, r) => sum + BigInt(r.message ?? 0), 0n);
   return {
-    net: BigInt(acct.paid_fee_value ?? 0) - BigInt(acct.total_refunded ?? 0),
+    net: primaryPaid - primaryRefunded,
     paid: String(acct.paid_fee_value ?? 0),
     refunded: String(acct.total_refunded ?? 0),
+    message_consumed: (messagePaid - messageRefunded).toString(),
     status: acct.status ?? null,
   };
 }
@@ -144,6 +156,7 @@ async function payoutChecked(key, name, address, method, args, paid) {
     fee_paid: fee?.paid ?? null,
     fee_refunded: fee?.refunded ?? null,
     fee_status: fee?.status ?? null,
+    message_fee_listed_not_charged: fee?.message_consumed ?? null,
     expected: expected?.toString() ?? null,
     difference: expected === null ? null : (after - expected).toString(),
   });

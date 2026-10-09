@@ -1,0 +1,384 @@
+{
+  "runs": {
+    "rp1": {
+      "site": "https://triage-genlayer.vercel.app",
+      "contract": "0x17c378994ebdF51ca536A8020dC04129F3612373",
+      "started": "2026-10-09T22:25:45.021Z",
+      "steps": [
+        {
+          "at": "2026-10-09T22:25:52.697Z",
+          "key": "faucet-team",
+          "pass": true,
+          "http": 200,
+          "sent_address": "0xdbef7739db38def689a85ad32e0397e8b98577cd",
+          "answered_address": "0xDBef7739dB38DeF689a85AD32e0397E8B98577cd",
+          "before": "0",
+          "after": "20000000000000000000",
+          "read_after": "20000000000000000000"
+        },
+        {
+          "at": "2026-10-09T22:25:55.738Z",
+          "key": "faucet-tester",
+          "pass": true,
+          "http": 200,
+          "sent_address": "0x608438c06e65afa36cd9a3ee0a44be0d9f46853e",
+          "answered_address": "0x608438c06e65afa36cD9A3ee0a44be0D9f46853E",
+          "before": "0",
+          "after": "20000000000000000000",
+          "read_after": "20000000000000000000"
+        },
+        {
+          "at": "2026-10-09T22:26:03.736Z",
+          "key": "open",
+          "method": "open_program",
+          "account": "review_team_rp1",
+          "from": "0xDBef7739dB38DeF689a85AD32e0397E8B98577cd",
+          "args": [
+            "Reviewer path rp1",
+            "The Triage website: the programs list, a program page, filing a report and a report page. Not in scope: the docs, the GenLayer network, the Studio Next explorer and wallets. Security issues go to a private advisory on the GitHub repository, never here.",
+            "3000000000000000000",
+            "1000000000000000000",
+            5,
+            0
+          ],
+          "value": "10000000000000000000",
+          "hash": "0x7e9e1b25269964508c5b99271b6b83a08b484a29ac13520eda09027dea5b6dc4",
+          "expect": "ok",
+          "ok": true,
+          "pass": true,
+          "status": "ACCEPTED",
+          "execution": "SUCCESS",
+          "returned": 3,
+          "refusal": null,
+          "seconds_to_decision": 8
+        },
+        {
+          "at": "2026-10-09T22:26:16.314Z",
+          "key": "submit-wrong-stake",
+          "method": "submit",
+          "account": "review_tester_rp1",
+          "from": "0x608438c06e65afa36cD9A3ee0a44be0D9f46853E",
+          "args": [
+            3,
+            "usability",
+            "Programs list does not show how many reports are waiting for the judge",
+            "418 characters"
+          ],
+          "value": "500000000000000000",
+          "hash": "0xa2caa8c153e8824a1d0310330ab639d9332e9be0fdb6011c2ff8a92c42c08552",
+          "expect": "refused",
+          "ok": false,
+          "pass": true,
+          "status": "ACCEPTED",
+          "execution": "ERROR",
+          "returned": null,
+          "refusal": "send exactly the stake: 1000000000000000000 wei",
+          "seconds_to_decision": 13
+        },
+        {
+          "at": "2026-10-09T22:26:24.143Z",
+          "key": "submit-by-team",
+          "method": "submit",
+          "account": "review_team_rp1",
+          "from": "0xDBef7739dB38DeF689a85AD32e0397E8B98577cd",
+          "args": [
+            3,
+            "usability",
+            "Programs list does not show how many reports are waiting for the judge",
+            "418 characters"
+          ],
+          "value": "1000000000000000000",
+          "hash": "0x35b9e21a351e69a33c6da62d48e76593b657c5eabdae2dfbdd1ca3152a15d122",
+          "expect": "refused",
+          "ok": false,
+          "pass": true,
+          "status": "ACCEPTED",
+          "execution": "ERROR",
+          "returned": null,
+          "refusal": "the team cannot file reports in its own program",
+          "seconds_to_decision": 8
+        },
+        {
+          "at": "2026-10-09T22:26:32.502Z",
+          "key": "submit-a",
+          "method": "submit",
+          "account": "review_tester_rp1",
+          "from": "0x608438c06e65afa36cD9A3ee0a44be0D9f46853E",
+          "args": [
+            3,
+            "usability",
+            "Programs list does not show how many reports are waiting for the judge",
+            "418 characters"
+          ],
+          "value": "1000000000000000000",
+          "hash": "0x54b3af32a939d18b8cf2ae73cc5277bc1167a5876ea7de13ecd9d5ea50a7d519",
+          "expect": "ok",
+          "ok": true,
+          "pass": true,
+          "status": "ACCEPTED",
+          "execution": "SUCCESS",
+          "returned": 22,
+          "refusal": null,
+          "seconds_to_decision": 8
+        },
+        {
+          "at": "2026-10-09T22:26:40.464Z",
+          "key": "submit-b",
+          "method": "submit",
+          "account": "review_tester_rp1",
+          "from": "0x608438c06e65afa36cD9A3ee0a44be0D9f46853E",
+          "args": [
+            3,
+            "idea",
+            "Improve it",
+            "42 characters"
+          ],
+          "value": "1000000000000000000",
+          "hash": "0xdb274564a36cc4260835e45e0ddc0cf89e3499adfba96039d840fe4c531e26ff",
+          "expect": "ok",
+          "ok": true,
+          "pass": true,
+          "status": "ACCEPTED",
+          "execution": "SUCCESS",
+          "returned": 23,
+          "refusal": null,
+          "seconds_to_decision": 8
+        },
+        {
+          "at": "2026-10-09T22:26:41.382Z",
+          "key": "read-reserved",
+          "pass": true,
+          "reserved": "6000000000000000000",
+          "pool": "4000000000000000000"
+        },
+        {
+          "at": "2026-10-09T22:26:49.434Z",
+          "key": "judge-b-first",
+          "method": "judge",
+          "account": "review_tester_rp1",
+          "from": "0x608438c06e65afa36cD9A3ee0a44be0D9f46853E",
+          "args": [
+            23
+          ],
+          "value": "0",
+          "hash": "0xa72870b3f493b86be4e9fc1c2805d8e9a56112bc269670a2e92369a41171e7a4",
+          "expect": "refused",
+          "ok": false,
+          "pass": true,
+          "status": "ACCEPTED",
+          "execution": "ERROR",
+          "returned": null,
+          "refusal": "report 22 was filed earlier in this program and is judged first",
+          "seconds_to_decision": 8
+        },
+        {
+          "at": "2026-10-09T22:27:20.765Z",
+          "key": "judge-a",
+          "method": "judge",
+          "account": "review_team_rp1",
+          "from": "0xDBef7739dB38DeF689a85AD32e0397E8B98577cd",
+          "args": [
+            22
+          ],
+          "value": "0",
+          "hash": "0x3c353b26a9d896edf62de8f8e27ef6723120592142a12de696afb57a6fe04971",
+          "expect": "ok",
+          "ok": true,
+          "pass": true,
+          "status": "ACCEPTED",
+          "execution": "SUCCESS",
+          "returned": "ACTIONABLE",
+          "refusal": null,
+          "seconds_to_decision": 31
+        },
+        {
+          "at": "2026-10-09T22:27:21.732Z",
+          "key": "read-verdict-a",
+          "pass": true,
+          "verdict": "ACTIONABLE",
+          "summary": "Programs list does not display count of reports awaiting judge, hindering tester filing decisions.",
+          "reason": "The report is specific, in scope, and provides a concrete usability problem with clear location and impact.",
+          "credited": "4000000000000000000",
+          "judged_by": "0xDBef7739dB38DeF689a85AD32e0397E8B98577cd"
+        },
+        {
+          "at": "2026-10-09T22:27:57.941Z",
+          "key": "judge-b",
+          "method": "judge",
+          "account": "review_tester_rp1",
+          "from": "0x608438c06e65afa36cD9A3ee0a44be0D9f46853E",
+          "args": [
+            23
+          ],
+          "value": "0",
+          "hash": "0x49e4bb2848d37b505ff6fdffe1f2ba9154a763411e3ddd7c09d075a65ab9f3bf",
+          "expect": "ok",
+          "ok": true,
+          "pass": true,
+          "status": "ACCEPTED",
+          "execution": "SUCCESS",
+          "returned": "LOW_EFFORT",
+          "refusal": null,
+          "seconds_to_decision": 36
+        },
+        {
+          "at": "2026-10-09T22:27:59.047Z",
+          "key": "read-verdict-b",
+          "pass": true,
+          "verdict": "LOW_EFFORT",
+          "summary": "Vague request for general improvements without specifics.",
+          "reason": "The report is too generic and lacks any concrete details or actionable items.",
+          "credited": "0"
+        },
+        {
+          "at": "2026-10-09T22:28:06.540Z",
+          "key": "bonus-by-tester",
+          "method": "bonus",
+          "account": "review_tester_rp1",
+          "from": "0x608438c06e65afa36cD9A3ee0a44be0D9f46853E",
+          "args": [
+            22
+          ],
+          "value": "1000000000000000000",
+          "hash": "0x11583e29620fa31ffbd3e4f435a045c3228b4253fd10e7b9609cf0179b9e14aa",
+          "expect": "refused",
+          "ok": false,
+          "pass": true,
+          "status": "ACCEPTED",
+          "execution": "ERROR",
+          "returned": null,
+          "refusal": "only the program's team may tip a bonus",
+          "seconds_to_decision": 7
+        },
+        {
+          "at": "2026-10-09T22:28:14.735Z",
+          "key": "bonus",
+          "method": "bonus",
+          "account": "review_team_rp1",
+          "from": "0xDBef7739dB38DeF689a85AD32e0397E8B98577cd",
+          "args": [
+            22
+          ],
+          "value": "1000000000000000000",
+          "hash": "0x3e6ec62cd3655852a7f37d5de4a27bd211a63a127295a6a693b6311973ad5574",
+          "expect": "ok",
+          "ok": true,
+          "pass": true,
+          "status": "ACCEPTED",
+          "execution": "SUCCESS",
+          "returned": 1000000000000000000,
+          "refusal": null,
+          "seconds_to_decision": 8
+        },
+        {
+          "at": "2026-10-09T22:28:33.462Z",
+          "key": "close-early",
+          "method": "close",
+          "account": "review_team_rp1",
+          "from": "0xDBef7739dB38DeF689a85AD32e0397E8B98577cd",
+          "args": [
+            3
+          ],
+          "value": "0",
+          "hash": "0xd69ce42fe42abe52668ec4100211f3e228f84a22657cc7e1fea91423f3a173f6",
+          "expect": "refused",
+          "ok": false,
+          "pass": true,
+          "status": "ACCEPTED",
+          "execution": "ERROR",
+          "returned": null,
+          "refusal": "this program runs until 1791588357 (seconds since the epoch)",
+          "seconds_to_decision": 17
+        },
+        {
+          "at": "2026-10-09T22:29:14.826Z",
+          "key": "withdraw",
+          "method": "withdraw",
+          "account": "review_tester_rp1",
+          "from": "0x608438c06e65afa36cD9A3ee0a44be0D9f46853E",
+          "args": [],
+          "value": "0",
+          "hash": "0x203da2fa139b146516c626bbdea11f0b7095357dd3f7586a343012d344e9f896",
+          "expect": "ok",
+          "ok": true,
+          "pass": true,
+          "status": "ACCEPTED",
+          "execution": "SUCCESS",
+          "returned": 5000000000000000000,
+          "refusal": null,
+          "seconds_to_decision": 8,
+          "final_status": "FINALIZED"
+        },
+        {
+          "at": "2026-10-09T22:29:15.585Z",
+          "key": "balance-withdraw",
+          "pass": false,
+          "paid_by_contract": "5000000000000000000",
+          "returned": 5000000000000000000,
+          "before": "17999527434499983062",
+          "after": "22999401129499980239",
+          "fee_paid": "51005000000016941",
+          "fee_refunded": "50853695000014118",
+          "fee_status": "settled",
+          "expected": "22999376129499980239",
+          "difference": "25000000000000"
+        },
+        {
+          "at": "2026-10-09T22:29:28.699Z",
+          "key": "withdraw-again",
+          "method": "withdraw",
+          "account": "review_tester_rp1",
+          "from": "0x608438c06e65afa36cD9A3ee0a44be0D9f46853E",
+          "args": [],
+          "value": "0",
+          "hash": "0x194a5b427d3e3bd1b9c049897a3e98ec841ca0a29e0f74f797b6bf7ff4b292fa",
+          "expect": "refused",
+          "ok": false,
+          "pass": true,
+          "status": "ACCEPTED",
+          "execution": "ERROR",
+          "returned": null,
+          "refusal": "nothing to withdraw",
+          "seconds_to_decision": 13
+        },
+        {
+          "at": "2026-10-09T22:29:37.243Z",
+          "key": "page-program",
+          "pass": true,
+          "url": "https://triage-genlayer.vercel.app/p/3",
+          "http": 200
+        },
+        {
+          "at": "2026-10-09T22:29:39.619Z",
+          "key": "page-report",
+          "pass": true,
+          "url": "https://triage-genlayer.vercel.app/r/22",
+          "http": 200
+        },
+        {
+          "at": "2026-10-09T22:29:42.389Z",
+          "key": "page-export",
+          "pass": true,
+          "url": "https://triage-genlayer.vercel.app/api/export/3",
+          "http": 200
+        },
+        {
+          "at": "2026-10-09T22:29:42.732Z",
+          "key": "page-programs",
+          "pass": true,
+          "url": "https://triage-genlayer.vercel.app/programs",
+          "http": 200
+        }
+      ],
+      "accounts": {
+        "team": "0xDBef7739dB38DeF689a85AD32e0397E8B98577cd",
+        "tester": "0x608438c06e65afa36cD9A3ee0a44be0D9f46853E",
+        "nonces_at_start": {
+          "team": 0,
+          "tester": 0
+        }
+      },
+      "program_id": 3
+    }
+  }
+}

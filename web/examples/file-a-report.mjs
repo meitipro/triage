@@ -13,14 +13,21 @@ import { readFileSync } from 'node:fs';
 import { createClient } from 'genlayer-js';
 import { studioDevnet } from 'genlayer-js/chains';
 
-import { standinWallet } from '../scripts/standin-wallet.mjs';
+import { balanceOf, ensureAccount, rpc, standinWallet } from '../scripts/standin-wallet.mjs';
 
 const TRIAGE = '0x17c378994ebdF51ca536A8020dC04129F3612373';
 const chain = { ...studioDevnet, id: 61997, rpcUrls: { default: { http: ['https://studio-next.genlayer.com/api'] } } };
 
 const [name = 'docs_example', program = '1', kind = 'bug', title, file] = process.argv.slice(2);
+ensureAccount(name); // a new name makes a fresh test account; only its address is ever shown
 const { address, provider } = standinWallet(name); // browser: window.ethereum
 const client = createClient({ chain, account: address, provider });
+
+// A fresh test account holds nothing. Studio's faucet funds it (test GEN only); the site's "Get test GEN" does the same.
+if ((await balanceOf(address)) < 3n * 10n ** 18n) {
+  await rpc('sim_fundAccount', [address, (20n * 10n ** 18n).toString()]);
+  for (let i = 0; i < 20 && (await balanceOf(address)) < 3n * 10n ** 18n; i++) await new Promise((r) => setTimeout(r, 1500));
+}
 
 async function read(functionName, args) {
   return JSON.parse(await client.readContract({ address: TRIAGE, functionName, args }));

@@ -180,6 +180,10 @@ export function outcomeOf(receipt) {
     const payload = result.payload;
     refusal = typeof payload === "string" ? payload : String(payload?.readable ?? JSON.stringify(payload));
     refusal = refusal.replace(/^"|"$/g, "").replace(/^\[(EXPECTED|LLM_ERROR)\]\s*/, "");
+    // The contract names the end of a program in seconds since the epoch; people read a date.
+    refusal = refusal.replace(/runs until (\d{9,11}) \(seconds since the epoch\)/, (_, seconds) =>
+      `runs until ${new Date(Number(seconds) * 1000).toISOString().slice(0, 16).replace("T", " ")} UTC`,
+    );
   }
   const ok = (status === "ACCEPTED" || status === "FINALIZED") && (execution === "SUCCESS" || execution === "FINISHED_WITH_RETURN") && kind === "return";
   return { ok, status, execution, kind, refusal, returned };

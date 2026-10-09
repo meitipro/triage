@@ -1,0 +1,25 @@
+accounts: team 0xDBef7739dB38DeF689a85AD32e0397E8B98577cd, tester 0x608438c06e65afa36cD9A3ee0a44be0D9f46853E, nonces at start {"team":0,"tester":0}
+faucet-team: HTTP 200 0 GEN -> 20 GEN 
+faucet-tester: HTTP 200 0 GEN -> 20 GEN 
+open: open_program ok (ACCEPTED) in 8 s   0x7e9e1b25269964508c5b99271b6b83a08b484a29ac13520eda09027dea5b6dc4
+  program 3
+submit-wrong-stake: submit refused: send exactly the stake: 1000000000000000000 wei (ACCEPTED) in 13 s   0xa2caa8c153e8824a1d0310330ab639d9332e9be0fdb6011c2ff8a92c42c08552
+submit-by-team: submit refused: the team cannot file reports in its own program (ACCEPTED) in 8 s   0x35b9e21a351e69a33c6da62d48e76593b657c5eabdae2dfbdd1ca3152a15d122
+submit-a: submit ok (ACCEPTED) in 8 s   0x54b3af32a939d18b8cf2ae73cc5277bc1167a5876ea7de13ecd9d5ea50a7d519
+submit-b: submit ok (ACCEPTED) in 8 s   0xdb274564a36cc4260835e45e0ddc0cf89e3499adfba96039d840fe4c531e26ff
+judge-b-first: judge refused: report 22 was filed earlier in this program and is judged first (ACCEPTED) in 8 s   0xa72870b3f493b86be4e9fc1c2805d8e9a56112bc269670a2e92369a41171e7a4
+judge-a: judge ok (ACCEPTED) in 31 s   0x3c353b26a9d896edf62de8f8e27ef6723120592142a12de696afb57a6fe04971
+  -> #22 ACTIONABLE: The report is specific, in scope, and provides a concrete usability problem with clear location and impact.
+judge-b: judge ok (ACCEPTED) in 36 s   0x49e4bb2848d37b505ff6fdffe1f2ba9154a763411e3ddd7c09d075a65ab9f3bf
+  -> #23 LOW_EFFORT: The report is too generic and lacks any concrete details or actionable items.
+bonus-by-tester: bonus refused: only the program's team may tip a bonus (ACCEPTED) in 7 s   0x11583e29620fa31ffbd3e4f435a045c3228b4253fd10e7b9609cf0179b9e14aa
+bonus: bonus ok (ACCEPTED) in 8 s   0x3e6ec62cd3655852a7f37d5de4a27bd211a63a127295a6a693b6311973ad5574
+close-early: close refused: this program runs until 1791588357 (seconds since the epoch) (ACCEPTED) in 17 s   0xd69ce42fe42abe52668ec4100211f3e228f84a22657cc7e1fea91423f3a173f6
+withdraw: withdraw ok (ACCEPTED) in 8 s   0x203da2fa139b146516c626bbdea11f0b7095357dd3f7586a343012d344e9f896
+  17.999527434499985 GEN -> 22.99940112949998 GEN; paid 5 GEN, net fee 0.000151305000002823 GEN; difference 25000000000000 wei
+withdraw-again: withdraw refused: nothing to withdraw (ACCEPTED) in 13 s   0x194a5b427d3e3bd1b9c049897a3e98ec841ca0a29e0f74f797b6bf7ff4b292fa
+page-program: HTTP 200 shows it  https://triage-genlayer.vercel.app/p/3
+page-report: HTTP 200 shows it  https://triage-genlayer.vercel.app/r/22
+page-export: HTTP 200 shows it  https://triage-genlayer.vercel.app/api/export/3
+page-programs: HTTP 200 shows it  https://triage-genlayer.vercel.app/programs
+waiting 57 min for the trial hour to end

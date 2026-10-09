@@ -18,13 +18,13 @@ function Row({ p }: { p: Program }) {
       <span className="min-w-[200px] flex-1">
         <span className="block font-medium">{p.name}</span>
         <span className="c-faint mono block text-[12px]">
-          reward {gen(p.reward)} · stake {gen(p.stake)} · {plural(p.reports, 'report')} · {p.actionable} actionable
+          reward {gen(p.reward)} · stake {gen(p.stake)} · {plural(p.reports, 'report')} · {p.actionable} actionable · {p.waiting} waiting for the judge
         </span>
       </span>
       <span className="text-right">
         <span className="mono block">{gen(p.pool)}</span>
         <span className="c-faint block text-[12px]">
-          {state === 'open' ? `runs to ${p.trial ? dayTime(p.ends_at) : day(p.ends_at)}` : state}
+          {state === 'open' ? `${p.trial ? 'one-hour trial, ' : ''}runs to ${p.trial ? dayTime(p.ends_at) : day(p.ends_at)}` : `${p.trial ? 'trial, ' : ''}${state}`}
         </span>
       </span>
     </Link>
