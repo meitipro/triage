@@ -1,0 +1,5 @@
+{
+  "sha256": "1846906e13fe24dc0cc4a296f2fea741340051dd36378caf9ec83395e7151f30",
+  "locked_at": "2026-10-09T17:24:18Z",
+  "note": "eval/golden.json is not edited after this lock; eval/run_golden.py refuses to run if the hash changes."
+}
