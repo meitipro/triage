@@ -5,24 +5,24 @@
  *
  * Two accounts made for this run, which have never touched the contract:
  *   1. faucet     the deployed site's /api/faucet funds both, sent the address in lower case
- *   2. open       Mia opens a program, English to Persian, 2 GEN a section, with 5 GEN in it
- *   3. sections   Mia adds two sections
- *   4. refusal    Tom submits without a claim; the contract refuses, and the site's
+ *   2. open       the team opens a one-hour trial program: 3 GEN reward, 1 GEN stake, 10 GEN in the pool
+ *   3. refusal    the tester files with half the stake; the contract refuses, and the site's
  *                 success test must read it as refused although the status is ACCEPTED
- *   5. pre-check  Tom claims section 1 and submits a translation with a changed number:
- *                 stored as PRECHECK_FAILED with the exact difference, no judge
- *   6. judge      Tom submits the fix and asks the validators; the verdict is read back
- *   7. refusal    Tom claims section 2; Mia tries to close while it is open, and is refused
- *   8. judge      Tom submits section 2 and Mia, not Tom, asks the validators
- *   9. withdraw   Tom withdraws; after finality his wallet must have moved by what the
+ *   4. refusal    the team files in its own program, and is refused
+ *   5. file       the tester files a specific report and a vague one; two rewards are reserved
+ *   6. refusal    the tester asks for the later report to be judged first, and is refused
+ *   7. judge      the team asks for the first verdict, the tester for the second; both read back
+ *   8. bonus      when the first is actionable: refused from the tester, then tipped by the team
+ *   9. refusal    the team tries to close before the trial hour is up
+ *  10. withdraw   the tester withdraws; after finality the wallet must have moved by what the
  *                 contract credited minus the fee the transaction's own accounting reports
- *  10. close      Mia closes; the same check for the unused pool coming back to her
- *  11. read       the program, editor and export pages on the deployed site show the chain
+ *  11. read       the program, report, export and programs pages on the deployed site show the chain
+ *  12. close      after the hour, the team closes; the same check for the unused pool coming back
  *
  * Every write goes through lib/genlayer-core.mjs with the stand-in wallet, the
  * code the browser runs. Each step is written to
  * ../docs/reviewer-path.studio-next.json before anything is printed about it.
- * Keys stay in ~/.faithful/accounts.json and are never printed.
+ * Keys stay in ~/.triage/accounts.json and are never printed.
  */
 
 import fs from 'node:fs';
@@ -87,7 +87,7 @@ async function write(key, account, method, args, value = 0n, { final = false, ex
     method,
     account,
     from: address,
-    args: method === 'submit' ? [args[0], args[1], `${String(args[2]).length} characters`] : args,
+    args: method === 'submit' ? [args[0], args[1], args[2], `${String(args[3]).length} characters`] : args,
     value: value.toString(),
     hash,
     expect,
@@ -150,25 +150,24 @@ async function payoutChecked(key, name, address, method, args, paid) {
   console.log(`  ${fmt(before)} -> ${fmt(after)}; paid ${fmt(paid)}, net fee ${fee === null ? '?' : fmt(fee.net)}; ${expected === after ? 'exact to the wei' : 'difference ' + (expected === null ? '?' : (after - expected).toString()) + ' wei'}`);
 }
 
-async function verdictOf(sectionId, submissionId) {
-  const s = await view('get_section', [sectionId]);
-  return s.submissions.find((x) => x.id === submissionId);
+async function report(id) {
+  return view('get_report', [id]);
 }
 
 // -- accounts ---------------------------------------------------------------------------------
-const mName = `review_mia_${run}`;
-const tName = `review_tom_${run}`;
-const mia = ensureAccount(mName);
-const tom = ensureAccount(tName);
+const tName = `review_team_${run}`;
+const rName = `review_tester_${run}`;
+const team = ensureAccount(tName);
+const tester = ensureAccount(rName);
 if (!log.accounts) {
-  const nonces = { mia: Number(await rpc('eth_getTransactionCount', [mia, 'latest'])), tom: Number(await rpc('eth_getTransactionCount', [tom, 'latest'])) };
-  log.accounts = { mia, tom, nonces_at_start: nonces };
+  const nonces = { team: Number(await rpc('eth_getTransactionCount', [team, 'latest'])), tester: Number(await rpc('eth_getTransactionCount', [tester, 'latest'])) };
+  log.accounts = { team, tester, nonces_at_start: nonces };
   save();
-  console.log(`accounts: Mia ${mia}, Tom ${tom}, nonces at start ${JSON.stringify(nonces)}`);
+  console.log(`accounts: team ${team}, tester ${tester}, nonces at start ${JSON.stringify(nonces)}`);
 }
 
 // -- 1. faucet, through the deployed site --------------------------------------------------------
-for (const [who, address] of [['mia', mia], ['tom', tom]]) {
+for (const [who, address] of [['team', team], ['tester', tester]]) {
   const key = `faucet-${who}`;
   if (stepFor(key)?.pass) continue;
   const response = await fetch(`${site}/api/faucet`, {
@@ -184,77 +183,78 @@ for (const [who, address] of [['mia', mia], ['tom', tom]]) {
   if (!pass) throw new Error(`${key} did not fund ${address}`);
 }
 
-// -- 2. open, 3. sections -------------------------------------------------------------------------
+// -- 2. open a one-hour trial program ----------------------------------------------------------------
 const name = `Reviewer path ${run}`;
-const opened = await write('open', mName, 'create_program', [name, 'en', ['fa'], '{"recovery phrase": {"fa": "عبارت بازیابی"}}', 2n * GEN], 5n * GEN);
+const SCOPE =
+  'The Triage website: the programs list, a program page, filing a report and a report page. Not in scope: the docs, ' +
+  'the GenLayer network, the Studio Next explorer and wallets. Security issues go to a private advisory on the GitHub repository, never here.';
+const REWARD = 3n * GEN;
+const STAKE = 1n * GEN;
+const opened = await write('open', tName, 'open_program', [name, SCOPE, REWARD, STAKE, 5, 0], 10n * GEN);
 const pid = Number(opened.returned);
 log.program_id = pid;
 save();
 console.log(`  program ${pid}`);
-const SOURCES = ['The fee is 10 GEN.', 'Never share your recovery phrase. Anyone who has it can move your funds.'];
-const added = await write('sections', mName, 'add_sections', [pid, JSON.stringify(SOURCES)]);
-const s1 = Number(added.returned);
-const s2 = s1 + 1;
 
-// -- 4. a refusal the site must call a refusal ------------------------------------------------------
-await write('submit-without-claim', tName, 'submit', [s1, 'fa', 'کارمزد ۱۰ GEN است.'], 0n, { expect: 'refused' });
+// -- 3, 4. refusals the site must call refusals, although their status is ACCEPTED --------------------------
+const A_TITLE = 'Programs list does not show how many reports are waiting for the judge';
+const A_BODY =
+  'Problem: each row on /programs shows the reward, the stake, the number of reports and how many are actionable, but ' +
+  'not how many are still waiting for the judge. A program with ten unjudged reports looks the same as one with none.\n' +
+  'Where: the /programs page, every program row, desktop and mobile.\n' +
+  'Why it matters: reports are judged in filing order, so a tester choosing where to file wants to know how long the line is.';
+await write('submit-wrong-stake', rName, 'submit', [pid, 'usability', A_TITLE, A_BODY], STAKE / 2n, { expect: 'refused' });
+await write('submit-by-team', tName, 'submit', [pid, 'usability', A_TITLE, A_BODY], STAKE, { expect: 'refused' });
 
-// -- 5. a pre-check failure, stored with the exact difference ----------------------------------------
-await write('claim-1', tName, 'claim', [s1, 'fa']);
-const wrong = await write('submit-1-wrong', tName, 'submit', [s1, 'fa', 'کارمزد ۱۰۰ GEN است.']);
-const wrongRow = await verdictOf(s1, Number(wrong.returned));
-if (!stepFor('read-precheck')) note({ key: 'read-precheck', pass: wrongRow.verdict === 'PRECHECK_FAILED', verdict: wrongRow.verdict, problems: wrongRow.problems });
-console.log(`  -> ${wrongRow.verdict}: ${wrongRow.problems.join('; ')}`);
+// -- 5, 6. two reports, filed with the stake ---------------------------------------------------------------
+const a = await write('submit-a', rName, 'submit', [pid, 'usability', A_TITLE, A_BODY], STAKE);
+const aId = Number(a.returned);
+const b = await write('submit-b', rName, 'submit', [pid, 'idea', 'Improve it', 'Needs improvement. Make everything better.'], STAKE);
+const bId = Number(b.returned);
+const afterFiling = await view('get_program', [pid]);
+if (!stepFor('read-reserved')) {
+  note({ key: 'read-reserved', pass: BigInt(afterFiling.reserved) === 2n * REWARD && BigInt(afterFiling.pool) === 10n * GEN - 2n * REWARD, reserved: afterFiling.reserved, pool: afterFiling.pool });
+}
 
-// -- 6. the fix, judged ----------------------------------------------------------------------------
-const fixed = await write('submit-1', tName, 'submit', [s1, 'fa', 'کارمزد ۱۰ GEN است.']);
-await write('judge-1', tName, 'judge', [Number(fixed.returned)]);
-const v1 = await verdictOf(s1, Number(fixed.returned));
-if (!stepFor('read-verdict-1')) note({ key: 'read-verdict-1', pass: v1.verdict !== 'PENDING', verdict: v1.verdict, reason: v1.reason, credited: v1.credited });
-console.log(`  -> ${v1.verdict}: ${v1.reason}`);
+// -- 7. filing order: the later report cannot be judged first ------------------------------------------------
+await write('judge-b-first', rName, 'judge', [bId], 0n, { expect: 'refused' });
 
-// -- 7. close is refused while a claim is open --------------------------------------------------------
-await write('claim-2', tName, 'claim', [s2, 'fa']);
-await write('close-while-open', mName, 'close', [pid], 0n, { expect: 'refused' });
+// -- 8, 9. the team asks for the first verdict, the tester for the second --------------------------------------
+await write('judge-a', tName, 'judge', [aId]);
+const va = await report(aId);
+if (!stepFor('read-verdict-a')) note({ key: 'read-verdict-a', pass: va.status !== 'FILED' && va.judged_by.toLowerCase() === team.toLowerCase(), verdict: va.status, summary: va.summary, reason: va.reason, credited: va.credited, judged_by: va.judged_by });
+console.log(`  -> #${aId} ${va.status}: ${va.reason}`);
+await write('judge-b', rName, 'judge', [bId]);
+const vb = await report(bId);
+if (!stepFor('read-verdict-b')) note({ key: 'read-verdict-b', pass: vb.status !== 'FILED', verdict: vb.status, summary: vb.summary, reason: vb.reason, credited: vb.credited });
+console.log(`  -> #${bId} ${vb.status}: ${vb.reason}`);
 
-// -- 8. section 2, judged at the maintainer's request -------------------------------------------------
-const second = await write('submit-2', tName, 'submit', [s2, 'fa', 'هرگز عبارت بازیابی خود را با کسی به اشتراک نگذارید. هر کسی که آن را داشته باشد می‌تواند وجوه شما را منتقل کند.']);
-await write('judge-2', mName, 'judge', [Number(second.returned)]);
-const v2 = await verdictOf(s2, Number(second.returned));
-if (!stepFor('read-verdict-2')) note({ key: 'read-verdict-2', pass: v2.verdict !== 'PENDING' && v2.judged_by.toLowerCase() === mia.toLowerCase(), verdict: v2.verdict, reason: v2.reason, credited: v2.credited, judged_by: v2.judged_by });
-console.log(`  -> ${v2.verdict}: ${v2.reason}`);
+// -- 10. a bonus from the team, refused from anyone else ----------------------------------------------------------
+if (va.status === 'ACTIONABLE') {
+  await write('bonus-by-tester', rName, 'bonus', [aId], GEN, { expect: 'refused' });
+  await write('bonus', tName, 'bonus', [aId], GEN);
+}
 
-// -- 9. withdraw, 10. close, both checked to the wei after finality ------------------------------------------
-const tomPage = await view('list_submissions', [tom, 0, 10]);
-const credit = BigInt(tomPage.balance);
+// -- 11. close is refused before the trial hour is up -----------------------------------------------------------------
+const program = await view('get_program', [pid]);
+if (Date.now() / 1000 < program.ends_at - 120) await write('close-early', tName, 'close', [pid], 0n, { expect: 'refused' });
+
+// -- 12. withdraw, checked to the wei after finality ------------------------------------------------------------------
+const stats = await view('tester_stats', [tester]);
+const credit = BigInt(stats.balance);
 if (credit > 0n) {
-  await payoutChecked('withdraw', tName, tom, 'withdraw', [], credit);
-  await write('withdraw-again', tName, 'withdraw', [], 0n, { expect: 'refused' });
-} else if (!stepFor('withdraw-nothing')) {
-  await write('withdraw-nothing', tName, 'withdraw', [], 0n, { expect: 'refused' });
-}
-const before = await view('get_program', [pid]);
-// Section 2 may have ended FLAWED with Tom still holding it for a revision; close then waits for the claim to expire.
-if (before.live_claims === 0) await payoutChecked('close', mName, mia, 'close', [pid], BigInt(before.pool));
-const after = await view('get_program', [pid]);
-if (!stepFor('read-program')) {
-  note({
-    key: 'read-program',
-    pass: BigInt(after.funded) === BigInt(after.pool) + BigInt(after.paid) + BigInt(after.returned),
-    funded: after.funded,
-    paid: after.paid,
-    returned: after.returned,
-    pool: after.pool,
-    closed: after.closed,
-  });
+  await payoutChecked('withdraw', rName, tester, 'withdraw', [], credit);
+  await write('withdraw-again', rName, 'withdraw', [], 0n, { expect: 'refused' });
+} else {
+  await write('withdraw-nothing', rName, 'withdraw', [], 0n, { expect: 'refused' });
 }
 
-// -- 11. the deployed site shows what the chain holds ---------------------------------------------------
+// -- 13. the deployed site shows what the chain holds ---------------------------------------------------------------------
 for (const [key, url, needle] of [
   ['page-program', `${site}/p/${pid}`, name],
-  ['page-editor', `${site}/s/${s1}/fa`, 'The fee is 10 GEN.'],
-  ['page-export', `${site}/api/export/${pid}/fa`, `program ${pid}`],
-  ['page-translator', `${site}/programs`, name],
+  ['page-report', `${site}/r/${aId}`, A_TITLE],
+  ['page-export', `${site}/api/export/${pid}`, va.status === 'ACTIONABLE' ? A_TITLE : `"id":${pid}`],
+  ['page-programs', `${site}/programs`, name],
 ]) {
   if (stepFor(key)?.pass) continue;
   let pass = false;
@@ -263,10 +263,35 @@ for (const [key, url, needle] of [
     if (attempt) await new Promise((r) => setTimeout(r, 10000));
     const response = await fetch(url, { cache: 'no-store' });
     status = response.status;
-    pass = response.ok && (await response.text()).includes(needle);
+    pass = response.ok && (await response.text()).replace(/<!-- -->/g, '').replace(/&#x27;/g, "'").includes(needle);
   }
   note({ key, pass, url, http: status });
   console.log(`${key}: HTTP ${status} ${pass ? 'shows it' : 'MISSING'}  ${url}`);
+}
+
+// -- 14. close after the trial hour, checked to the wei ----------------------------------------------------------------------
+const wait = (program.ends_at + 20) * 1000 - Date.now();
+if (wait > 0 && !stepFor('balance-close')) {
+  console.log(`waiting ${Math.ceil(wait / 60000)} min for the trial hour to end`);
+  await new Promise((r) => setTimeout(r, wait));
+}
+const before = await view('get_program', [pid]);
+await payoutChecked('close', tName, team, 'close', [pid], BigInt(before.pool));
+await write('close-again', tName, 'close', [pid], 0n, { expect: 'refused' });
+const after = await view('get_program', [pid]);
+if (!stepFor('read-program')) {
+  note({
+    key: 'read-program',
+    pass: after.closed && BigInt(after.funded) + BigInt(after.lost) === BigInt(after.pool) + BigInt(after.reserved) + BigInt(after.paid) + BigInt(after.returned),
+    funded: after.funded,
+    lost: after.lost,
+    paid: after.paid,
+    returned: after.returned,
+    pool: after.pool,
+    reserved: after.reserved,
+    bonuses: after.bonuses,
+    closed: after.closed,
+  });
 }
 
 log.finished = new Date().toISOString();

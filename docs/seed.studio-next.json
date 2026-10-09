@@ -1,0 +1,155 @@
+{
+  "program": {
+    "program_id": 2,
+    "open_tx": "0x91c97c0c48cea1ec1c9ef5ba913a19f505ba322bd909906812840f64b39437eb"
+  },
+  "reports": {
+    "csv": {
+      "tester": "0xdc1387d36C6a12309bc9B6150B007040130dbE38",
+      "title": "Export button only offers JSON; CSV needs a hand-typed URL",
+      "report_id": 16,
+      "submit_tx": "0x2b8d9459c8f79cb2d38215ed49279f1f725d748e19894d3ed6f3ead8f51b98ba",
+      "verdict": "ACTIONABLE",
+      "duplicate_of": 0,
+      "summary": "Program page export UI exposes only JSON even though the export endpoint also supports CSV via a query parameter.",
+      "reason": "This is in scope, points to a specific page and control, explains the concrete usability gap and impact, and no accepted report already covers it.",
+      "judge_tx": "0x8b60ae250e9d8e57c6b465b3ad7cb7d54da96bcf51d7da577b321da5e59150eb"
+    },
+    "cap": {
+      "tester": "0xAB39894f444Fd5B92eA71aB651467220FAadc49D",
+      "title": "Show how many reports I have left this week on the program page",
+      "report_id": 17,
+      "submit_tx": "0x9c6a75b5853be911885a8ef6b262db98fa3cd24c5282f94d2c25dd327ab951e3",
+      "verdict": "ACTIONABLE",
+      "duplicate_of": 0,
+      "summary": "Show each connected tester’s remaining weekly report quota on the program page near the File a report button.",
+      "reason": "This is an in-scope, specific usability request with a clear problem, proposed UI change, and benefit, and it is not the same as the accepted export-format issue.",
+      "judge_tx": "0x796ec4f8bab96caee9f2246706d9bbbb59d8e9008177de5ed5c834faa577aa88"
+    },
+    "csv-again": {
+      "tester": "0x3AC61953114647f7c0f4ea170B471B75842f24ef",
+      "title": "No CSV download for the queue",
+      "report_id": 18,
+      "submit_tx": "0x8f5ac7617b951cd87ce5f11da9a215e5c28ba1d7b85f55b9d65e817dfb659ac6",
+      "verdict": "DUPLICATE",
+      "duplicate_of": 16,
+      "summary": "Program export UI lacks a CSV option even though the export endpoint supports CSV via a parameter.",
+      "reason": "This is the same issue as accepted report 16: the Export button only exposes JSON while CSV is available only through a manual URL/query parameter.",
+      "judge_tx": "0x42f200acba228e1bf1eba81fe48cf18771b0f85028daaa3123497874a0d5384b"
+    },
+    "explorer": {
+      "tester": "0xf669d25e7f48fb3d385F94c997BDD2029C65488B",
+      "title": "Explorer transaction pages take long to load",
+      "report_id": 19,
+      "submit_tx": "0x4e3cdf6db8b9b62f45450c38109c3bb9bb6de11d7fb8033f50ac2fb08454a14c",
+      "verdict": "OUT_OF_SCOPE",
+      "duplicate_of": 0,
+      "summary": "Report about slow loading times on external explorer transaction pages.",
+      "reason": "The issue concerns the Studio Next explorer page performance, which is explicitly excluded from scope as part of 'the GenLayer network itself, the Studio Next RPC and explorer'.",
+      "judge_tx": "0xa1586315f9546b26d03c85123a6ecc8f87984123fb60f642281cd45de5379ec2"
+    },
+    "vague": {
+      "tester": "0xAB39894f444Fd5B92eA71aB651467220FAadc49D",
+      "title": "Make the site better",
+      "report_id": 20,
+      "submit_tx": "0xe4954c31f7e116315383b4fb1befe9bc794e610b98c50a00f11ece87952a8434",
+      "verdict": "LOW_EFFORT",
+      "duplicate_of": 0,
+      "summary": "Tester asks the site be easier and nicer to use, but gives no specific problem, step, or example.",
+      "reason": "The report is vague and generic with no concrete usability issue or idea, matching the LOW_EFFORT definition.",
+      "judge_tx": "0xf073e9597f8452056d7d91ae0c1c4334e279ecdf99030ccbbb7feda77967cf5d"
+    },
+    "sample": {
+      "tester": "0xdc1387d36C6a12309bc9B6150B007040130dbE38",
+      "title": "Quickstart script says <body file> without saying what goes in it",
+      "report_id": 21,
+      "submit_tx": "0xbb1ab808ff0080f582a9ae88a7cf516f7cc739a10f4c8b3b12584e0d84120fd4",
+      "verdict": "ACTIONABLE",
+      "duplicate_of": 0,
+      "summary": "Docs missing description of the body file contents and valid kind values in the quickstart script",
+      "reason": "The report provides clear steps, expected behavior, and actual missing information within the /docs scope, enabling the team to update the documentation.",
+      "judge_tx": "0x308ec00927d13e9a1057f515214ea547f14758ef4ce5f13be725f4389328f8ce"
+    }
+  },
+  "attempts": [
+    {
+      "key": "csv",
+      "attempt": 1,
+      "tx": "0x8b60ae250e9d8e57c6b465b3ad7cb7d54da96bcf51d7da577b321da5e59150eb",
+      "consensus": "decided",
+      "verdict": "ACTIONABLE"
+    },
+    {
+      "key": "cap",
+      "attempt": 1,
+      "tx": "0x796ec4f8bab96caee9f2246706d9bbbb59d8e9008177de5ed5c834faa577aa88",
+      "consensus": "decided",
+      "verdict": "ACTIONABLE"
+    },
+    {
+      "key": "csv-again",
+      "attempt": 1,
+      "tx": "0x42f200acba228e1bf1eba81fe48cf18771b0f85028daaa3123497874a0d5384b",
+      "consensus": "decided",
+      "verdict": "DUPLICATE"
+    },
+    {
+      "key": "explorer",
+      "attempt": 1,
+      "tx": "0xa1586315f9546b26d03c85123a6ecc8f87984123fb60f642281cd45de5379ec2",
+      "consensus": "decided",
+      "verdict": "OUT_OF_SCOPE"
+    },
+    {
+      "key": "vague",
+      "attempt": 1,
+      "tx": "0xf073e9597f8452056d7d91ae0c1c4334e279ecdf99030ccbbb7feda77967cf5d",
+      "consensus": "decided",
+      "verdict": "LOW_EFFORT"
+    },
+    {
+      "key": "sample",
+      "attempt": 1,
+      "tx": "0x308ec00927d13e9a1057f515214ea547f14758ef4ce5f13be725f4389328f8ce",
+      "consensus": "decided",
+      "verdict": "ACTIONABLE"
+    }
+  ],
+  "bonus": {
+    "report": "sample",
+    "report_id": 21,
+    "gen": 5,
+    "tx": "0xd387b7b588693cfb24d7db963af0af7e0bade43d7305742e44e57ab0662e388a"
+  },
+  "withdraw": {
+    "tester": "0xdc1387d36C6a12309bc9B6150B007040130dbE38",
+    "amount_wei": "23000000000000000000",
+    "tx": "0x3e4b4bf4ce7b1f66b785286a46820c5f2f4859d04c7a05ca26c923aef89c0180",
+    "balance_before_wei": "997999842711249994354",
+    "balance_after_wei": "1020999716406249991531"
+  },
+  "contract": "0x17c378994ebdF51ca536A8020dC04129F3612373",
+  "network": "studio-next",
+  "explorer": "https://explorer-studio-dev.genlayer.com",
+  "team": "0x6f70BCa42C46d1767F70122e014e105258cEEA0D",
+  "testers": {
+    "seed_tester_1": "0xdc1387d36C6a12309bc9B6150B007040130dbE38",
+    "seed_tester_2": "0xAB39894f444Fd5B92eA71aB651467220FAadc49D",
+    "seed_tester_3": "0x3AC61953114647f7c0f4ea170B471B75842f24ef",
+    "seed_tester_4": "0xf669d25e7f48fb3d385F94c997BDD2029C65488B"
+  },
+  "program_state": {
+    "pool": "177000000000000000000",
+    "reserved": "0",
+    "funded": "200000000000000000000",
+    "lost": "1000000000000000000",
+    "paid": "24000000000000000000",
+    "bonuses": "5000000000000000000",
+    "reports": 6,
+    "actionable": 3,
+    "duplicate": 1,
+    "out_of_scope": 1,
+    "low_effort": 1,
+    "testers": 4
+  }
+}

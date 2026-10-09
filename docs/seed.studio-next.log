@@ -1,0 +1,51 @@
+  0x6f70BCa4 0.00 -> 1000.00 GEN
+  0xdc1387d3 0.00 -> 1000.00 GEN
+  0xAB39894f 0.00 -> 1000.00 GEN
+  0x3AC61953 0.00 -> 1000.00 GEN
+  0xf669d25e 0.00 -> 1000.00 GEN
+  open_program 0x91c97c0c48cea1ec1c9ef5ba913a19f505ba322bd909906812840f64b39437eb
+opened program 2  https://explorer-studio-dev.genlayer.com/tx/0x91c97c0c48cea1ec1c9ef5ba913a19f505ba322bd909906812840f64b39437eb
+  submit 0x2b8d9459c8f79cb2d38215ed49279f1f725d748e19894d3ed6f3ead8f51b98ba
+
+csv: filed as #16  https://explorer-studio-dev.genlayer.com/tx/0x2b8d9459c8f79cb2d38215ed49279f1f725d748e19894d3ed6f3ead8f51b98ba
+  judge 0x8b60ae250e9d8e57c6b465b3ad7cb7d54da96bcf51d7da577b321da5e59150eb
+  ACTIONABLE  This is in scope, points to a specific page and control, explains the concrete usability gap and impact, and no accepted report already covers it.
+  https://explorer-studio-dev.genlayer.com/tx/0x8b60ae250e9d8e57c6b465b3ad7cb7d54da96bcf51d7da577b321da5e59150eb
+  submit 0x9c6a75b5853be911885a8ef6b262db98fa3cd24c5282f94d2c25dd327ab951e3
+
+cap: filed as #17  https://explorer-studio-dev.genlayer.com/tx/0x9c6a75b5853be911885a8ef6b262db98fa3cd24c5282f94d2c25dd327ab951e3
+  judge 0x796ec4f8bab96caee9f2246706d9bbbb59d8e9008177de5ed5c834faa577aa88
+  ACTIONABLE  This is an in-scope, specific usability request with a clear problem, proposed UI change, and benefit, and it is not the same as the accepted export-format issue.
+  https://explorer-studio-dev.genlayer.com/tx/0x796ec4f8bab96caee9f2246706d9bbbb59d8e9008177de5ed5c834faa577aa88
+  submit 0x8f5ac7617b951cd87ce5f11da9a215e5c28ba1d7b85f55b9d65e817dfb659ac6
+
+csv-again: filed as #18  https://explorer-studio-dev.genlayer.com/tx/0x8f5ac7617b951cd87ce5f11da9a215e5c28ba1d7b85f55b9d65e817dfb659ac6
+  judge 0x42f200acba228e1bf1eba81fe48cf18771b0f85028daaa3123497874a0d5384b
+  DUPLICATE  This is the same issue as accepted report 16: the Export button only exposes JSON while CSV is available only through a manual URL/query parameter.
+  https://explorer-studio-dev.genlayer.com/tx/0x42f200acba228e1bf1eba81fe48cf18771b0f85028daaa3123497874a0d5384b
+  submit 0x4e3cdf6db8b9b62f45450c38109c3bb9bb6de11d7fb8033f50ac2fb08454a14c
+
+explorer: filed as #19  https://explorer-studio-dev.genlayer.com/tx/0x4e3cdf6db8b9b62f45450c38109c3bb9bb6de11d7fb8033f50ac2fb08454a14c
+  judge 0xa1586315f9546b26d03c85123a6ecc8f87984123fb60f642281cd45de5379ec2
+  OUT_OF_SCOPE  The issue concerns the Studio Next explorer page performance, which is explicitly excluded from scope as part of 'the GenLayer network itself, the Studio Next RPC and explorer'.
+  https://explorer-studio-dev.genlayer.com/tx/0xa1586315f9546b26d03c85123a6ecc8f87984123fb60f642281cd45de5379ec2
+  submit 0xe4954c31f7e116315383b4fb1befe9bc794e610b98c50a00f11ece87952a8434
+
+vague: filed as #20  https://explorer-studio-dev.genlayer.com/tx/0xe4954c31f7e116315383b4fb1befe9bc794e610b98c50a00f11ece87952a8434
+  judge 0xf073e9597f8452056d7d91ae0c1c4334e279ecdf99030ccbbb7feda77967cf5d
+  LOW_EFFORT  The report is vague and generic with no concrete usability issue or idea, matching the LOW_EFFORT definition.
+  https://explorer-studio-dev.genlayer.com/tx/0xf073e9597f8452056d7d91ae0c1c4334e279ecdf99030ccbbb7feda77967cf5d
+  submit 0xbb1ab808ff0080f582a9ae88a7cf516f7cc739a10f4c8b3b12584e0d84120fd4
+
+sample: filed as #21  https://explorer-studio-dev.genlayer.com/tx/0xbb1ab808ff0080f582a9ae88a7cf516f7cc739a10f4c8b3b12584e0d84120fd4
+  judge 0x308ec00927d13e9a1057f515214ea547f14758ef4ce5f13be725f4389328f8ce
+  ACTIONABLE  The report provides clear steps, expected behavior, and actual missing information within the /docs scope, enabling the team to update the documentation.
+  https://explorer-studio-dev.genlayer.com/tx/0x308ec00927d13e9a1057f515214ea547f14758ef4ce5f13be725f4389328f8ce
+  bonus 0xd387b7b588693cfb24d7db963af0af7e0bade43d7305742e44e57ab0662e388a
+
+bonus of 5 GEN on #21  https://explorer-studio-dev.genlayer.com/tx/0xd387b7b588693cfb24d7db963af0af7e0bade43d7305742e44e57ab0662e388a
+  withdraw 0x3e4b4bf4ce7b1f66b785286a46820c5f2f4859d04c7a05ca26c923aef89c0180
+
+seed_tester_1 withdrew 23.0 GEN  https://explorer-studio-dev.genlayer.com/tx/0x3e4b4bf4ce7b1f66b785286a46820c5f2f4859d04c7a05ca26c923aef89c0180
+
+program {"pool": "177000000000000000000", "reserved": "0", "funded": "200000000000000000000", "lost": "1000000000000000000", "paid": "24000000000000000000", "bonuses": "5000000000000000000", "reports": 6, "actionable": 3, "duplicate": 1, "out_of_scope": 1, "low_effort": 1, "testers": 4}
