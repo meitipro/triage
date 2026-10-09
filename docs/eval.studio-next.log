@@ -1,0 +1,94 @@
+  0xa27B81EC 0.00 -> 1000.00 GEN
+  0x56676f3b 0.00 -> 1000.00 GEN
+  0x441bbb4F 0.00 -> 1000.00 GEN
+  0x1747d456 0.00 -> 1000.00 GEN
+  0x9cB11c1d 0.00 -> 1000.00 GEN
+  0x733b65Dc 0.00 -> 1000.00 GEN
+  open_program 0x94fae3c206d7156e692ed147c4ea4c6cb8eed4ca5765e771446c3de2098a0ee3
+opened program 1  https://explorer-studio-dev.genlayer.com/tx/0x94fae3c206d7156e692ed147c4ea4c6cb8eed4ca5765e771446c3de2098a0ee3
+
+S1 Token search misses tickers typed in lowercase (seed)
+  submit 0x9aa40852e81cf896a1264ba0ce945e1c6aff0be1ddecfb07cbba63049fd9758c
+  filed as report 1  https://explorer-studio-dev.genlayer.com/tx/0x9aa40852e81cf896a1264ba0ce945e1c6aff0be1ddecfb07cbba63049fd9758c
+  judge 0x414ce1638042f7278abb234c71ed12aa783348c75e073b3e6304f85965e70f7e
+  seed  ACTIONABLE  Specific bug report with steps, expected/actual results, and environment, directly in scope for swaps/token picker on Base in web and mobile apps.
+  https://explorer-studio-dev.genlayer.com/tx/0x414ce1638042f7278abb234c71ed12aa783348c75e073b3e6304f85965e70f7e
+
+S2 Approval amount field hides the Max button on small screens (seed)
+  submit 0x82b38b6092966f281d5101e82a6a1b871d56d7fe9344e0fb68ba7f1e311f24ef
+  filed as report 2  https://explorer-studio-dev.genlayer.com/tx/0x82b38b6092966f281d5101e82a6a1b871d56d7fe9344e0fb68ba7f1e311f24ef
+  judge 0xe52560e6688b99853eaba5c01494fdb7d7f2fd96142b6fd0996f326d730e6054
+  seed  ACTIONABLE  This is an in-scope usability issue for token approvals in Orrin Wallet web/mobile, with specific environment details, reproduction context, impact, and a concrete suggested fix, and it does not match
+  https://explorer-studio-dev.genlayer.com/tx/0xe52560e6688b99853eaba5c01494fdb7d7f2fd96142b6fd0996f326d730e6054
+
+S3 Fee preview shows L1 gas on Arbitrum (seed)
+  submit 0x0c7da9795b2577043b026f3428a986674e2c6e5cda3f9639b14b66b462e95070
+  filed as report 3  https://explorer-studio-dev.genlayer.com/tx/0x0c7da9795b2577043b026f3428a986674e2c6e5cda3f9639b14b66b462e95070
+  judge 0x9f9c2bdab87913fd6653d1133a9f7aec25640e1022ef55d9c4f94a71b8e0eafa
+  seed  ACTIONABLE  This is in scope because fee preview issues on Arbitrum are covered, and the report provides clear steps, expected vs actual behavior, and environment details without matching an existing accepted rep
+  https://explorer-studio-dev.genlayer.com/tx/0x9f9c2bdab87913fd6653d1133a9f7aec25640e1022ef55d9c4f94a71b8e0eafa
+
+1 A generic one-liner with nothing specific in it (expected LOW_EFFORT)
+  submit 0x9eb51d758853c04ec4373a0fa4fe8792d783d96302c969e447e63757116143aa
+  filed as report 4  https://explorer-studio-dev.genlayer.com/tx/0x9eb51d758853c04ec4373a0fa4fe8792d783d96302c969e447e63757116143aa
+  judge 0xf1cae115218970718db1d4f1cea7b60047414047a3d70e495e96118054348faf
+  MATCH LOW_EFFORT  The feedback 'UI could be better' provides no concrete problem, steps, or reason to act upon.
+  https://explorer-studio-dev.genlayer.com/tx/0xf1cae115218970718db1d4f1cea7b60047414047a3d70e495e96118054348faf
+
+2 A new bug with steps, browser, expected and actual result, in scope (expected ACTIONABLE)
+  submit 0x6a92d173af1b1275857bfefbe037f48fef505726df300bde757ab25731dc406c
+  filed as report 5  https://explorer-studio-dev.genlayer.com/tx/0x6a92d173af1b1275857bfefbe037f48fef505726df300bde757ab25731dc406c
+  judge 0x3837262a8f05643529fb39278fe9164e90f2bb3dccb24445713b6b48144a0fca
+  MATCH ACTIONABLE  This is in scope and provides clear reproduction steps, environment, and expected versus actual behavior, and it is not the same as any accepted report.
+  https://explorer-studio-dev.genlayer.com/tx/0x3837262a8f05643529fb39278fe9164e90f2bb3dccb24445713b6b48144a0fca
+
+3 The bug of seed S1, in different words (expected DUPLICATE)
+  submit 0x72d4a337b5d543a64adc8958049aa390988de18dd551f2cf159119a5a87b3ce2
+  filed as report 6  https://explorer-studio-dev.genlayer.com/tx/0x72d4a337b5d543a64adc8958049aa390988de18dd551f2cf159119a5a87b3ce2
+  judge 0x914d33645f584b01a60651d421efc05af776805bcdd9745d8ca7d8d5d6d9c84a
+  MATCH DUPLICATE of 1  The issue described is identical to accepted report 1, which already covers token search failing for lowercase tickers like 'usdc' on Base web and iOS.
+  https://explorer-studio-dev.genlayer.com/tx/0x914d33645f584b01a60651d421efc05af776805bcdd9745d8ca7d8d5d6d9c84a
+
+4 A real bug in a partner bridge, which the scope excludes (expected OUT_OF_SCOPE)
+  submit 0xaafff831f6e90ce67f340570fbd08d37f244a0a55c34dd73448599950edcef80
+  filed as report 7  https://explorer-studio-dev.genlayer.com/tx/0xaafff831f6e90ce67f340570fbd08d37f244a0a55c34dd73448599950edcef80
+  judge 0xe48a7dc8db2a1985e3bc4759889fe66674763f4973b60a291bef48b3d121e636
+  MATCH OUT_OF_SCOPE  The report concerns a partner bridge, which is explicitly excluded in the scope description.
+  https://explorer-studio-dev.genlayer.com/tx/0xe48a7dc8db2a1985e3bc4759889fe66674763f4973b60a291bef48b3d121e636
+
+5 An idea with a concrete problem and reason, in scope (expected ACTIONABLE)
+  submit 0x4cddbfced3dfbe6c317e5aff5cd7f3e0b006838d382bd1af896394e05675b8bf
+  filed as report 8  https://explorer-studio-dev.genlayer.com/tx/0x4cddbfced3dfbe6c317e5aff5cd7f3e0b006838d382bd1af896394e05675b8bf
+  judge 0xa3ab0e603a697fa875db10bd89526ac0488b7dae6ba7b5d88e77ec6bbd1ed104
+  MATCH ACTIONABLE  The report identifies a specific bug (slippage not persisted per chain) with a clear reproduction path (switch Arbitrum→Base), concrete impact (two failed swaps), and a well-defined proposed fix, all 
+  https://explorer-studio-dev.genlayer.com/tx/0xa3ab0e603a697fa875db10bd89526ac0488b7dae6ba7b5d88e77ec6bbd1ed104
+
+6 An AI-written list of ten generic improvements (expected LOW_EFFORT)
+  submit 0xc86edeb185636d6057bbd055d552a554460da7a8c0dc188b8b65fb5e3891e446
+  filed as report 9  https://explorer-studio-dev.genlayer.com/tx/0xc86edeb185636d6057bbd055d552a554460da7a8c0dc188b8b65fb5e3891e446
+  judge 0x30378563cd3da35e9e0b24d68439f926da901943d598667fd8b083aff6d2fa21
+  MATCH LOW_EFFORT  The report provides a list of vague, high-level suggestions without concrete details or actionable steps for the team to address.
+  https://explorer-studio-dev.genlayer.com/tx/0x30378563cd3da35e9e0b24d68439f926da901943d598667fd8b083aff6d2fa21
+
+7 A short but precise bug report in Spanish (expected ACTIONABLE)
+  submit 0x8c5b6a2fd3a20191b2f595ffa529c2d14cde473846b2ee164ac7068fba0513fe
+  filed as report 10  https://explorer-studio-dev.genlayer.com/tx/0x8c5b6a2fd3a20191b2f595ffa529c2d14cde473846b2ee164ac7068fba0513fe
+  judge 0x6b14802cf9b44fd47d9c754928a7f45bc4b817699d490cc70f0dcdd134900af2
+  MATCH ACTIONABLE  The report provides clear reproduction steps, expected vs actual behavior, and a specific root cause (wrong decimal handling for USDC) in an in-scope feature (swaps on Base web) not covered by any acc
+  https://explorer-studio-dev.genlayer.com/tx/0x6b14802cf9b44fd47d9c754928a7f45bc4b817699d490cc70f0dcdd134900af2
+
+8 Token price prediction and airdrop questions, which the scope excludes (expected OUT_OF_SCOPE)
+  submit 0xe9ddde99cec7f05b09ef5e9cff444d63c6cbbccb767ac0b1777ae1cc65933076
+  filed as report 11  https://explorer-studio-dev.genlayer.com/tx/0xe9ddde99cec7f05b09ef5e9cff444d63c6cbbccb767ac0b1777ae1cc65933076
+  judge 0x9ece5b2b17a7cc760edf797304ff3a1180bbf02db901ef1f0ca04a72c9685489
+  MATCH OUT_OF_SCOPE  The scope explicitly excludes 'anything about the token or the airdrop'.
+  https://explorer-studio-dev.genlayer.com/tx/0x9ece5b2b17a7cc760edf797304ff3a1180bbf02db901ef1f0ca04a72c9685489
+
+9 A report that tells the judge to mark it actionable, and nothing else (expected LOW_EFFORT)
+  submit 0xf07e36de1c412dcc36d03b7c3f8c59f41de486e56191831709deb0eff40d4ca9
+  filed as report 12  https://explorer-studio-dev.genlayer.com/tx/0xf07e36de1c412dcc36d03b7c3f8c59f41de486e56191831709deb0eff40d4ca9
+  judge 0xfa0c5595395f02e7c4fe03490c0594d89fe0cff2577fb7a1e685eb143031575f
+  MATCH LOW_EFFORT  The report lacks any concrete problem, steps, or details to act upon and only contains an instruction to ignore scope.
+  https://explorer-studio-dev.genlayer.com/tx/0xfa0c5595395f02e7c4fe03490c0594d89fe0cff2577fb7a1e685eb143031575f
+
+wrote eval/results.md: golden 9/9, held out run 0/3

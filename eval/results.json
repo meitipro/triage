@@ -1,0 +1,301 @@
+{
+  "program": {
+    "program_id": 1,
+    "open_tx": "0x94fae3c206d7156e692ed147c4ea4c6cb8eed4ca5765e771446c3de2098a0ee3"
+  },
+  "items": {
+    "S1": {
+      "tester": "0x56676f3be62D3767C2C06Bd173078dA9b7C89FA8",
+      "seed": true,
+      "report_id": 1,
+      "submit_tx": "0x9aa40852e81cf896a1264ba0ce945e1c6aff0be1ddecfb07cbba63049fd9758c"
+    },
+    "S2": {
+      "tester": "0x441bbb4Fbc23286C1Dd6b7E9D1D5c603ad771914",
+      "seed": true,
+      "report_id": 2,
+      "submit_tx": "0x82b38b6092966f281d5101e82a6a1b871d56d7fe9344e0fb68ba7f1e311f24ef"
+    },
+    "S3": {
+      "tester": "0x1747d456eAe150bBDcb003509F14C721025aDf65",
+      "seed": true,
+      "report_id": 3,
+      "submit_tx": "0x0c7da9795b2577043b026f3428a986674e2c6e5cda3f9639b14b66b462e95070"
+    },
+    "1": {
+      "tester": "0x9cB11c1d3397315516c058e135eC7A1cF513c084",
+      "seed": false,
+      "report_id": 4,
+      "submit_tx": "0x9eb51d758853c04ec4373a0fa4fe8792d783d96302c969e447e63757116143aa"
+    },
+    "2": {
+      "tester": "0x733b65DcC85c70a106ecea05De3FfFCC0EbEf9Bb",
+      "seed": false,
+      "report_id": 5,
+      "submit_tx": "0x6a92d173af1b1275857bfefbe037f48fef505726df300bde757ab25731dc406c"
+    },
+    "3": {
+      "tester": "0x56676f3be62D3767C2C06Bd173078dA9b7C89FA8",
+      "seed": false,
+      "report_id": 6,
+      "submit_tx": "0x72d4a337b5d543a64adc8958049aa390988de18dd551f2cf159119a5a87b3ce2"
+    },
+    "4": {
+      "tester": "0x441bbb4Fbc23286C1Dd6b7E9D1D5c603ad771914",
+      "seed": false,
+      "report_id": 7,
+      "submit_tx": "0xaafff831f6e90ce67f340570fbd08d37f244a0a55c34dd73448599950edcef80"
+    },
+    "5": {
+      "tester": "0x1747d456eAe150bBDcb003509F14C721025aDf65",
+      "seed": false,
+      "report_id": 8,
+      "submit_tx": "0x4cddbfced3dfbe6c317e5aff5cd7f3e0b006838d382bd1af896394e05675b8bf"
+    },
+    "6": {
+      "tester": "0x9cB11c1d3397315516c058e135eC7A1cF513c084",
+      "seed": false,
+      "report_id": 9,
+      "submit_tx": "0xc86edeb185636d6057bbd055d552a554460da7a8c0dc188b8b65fb5e3891e446"
+    },
+    "7": {
+      "tester": "0x733b65DcC85c70a106ecea05De3FfFCC0EbEf9Bb",
+      "seed": false,
+      "report_id": 10,
+      "submit_tx": "0x8c5b6a2fd3a20191b2f595ffa529c2d14cde473846b2ee164ac7068fba0513fe"
+    },
+    "8": {
+      "tester": "0x56676f3be62D3767C2C06Bd173078dA9b7C89FA8",
+      "seed": false,
+      "report_id": 11,
+      "submit_tx": "0xe9ddde99cec7f05b09ef5e9cff444d63c6cbbccb767ac0b1777ae1cc65933076"
+    },
+    "9": {
+      "tester": "0x441bbb4Fbc23286C1Dd6b7E9D1D5c603ad771914",
+      "seed": false,
+      "report_id": 12,
+      "submit_tx": "0xf07e36de1c412dcc36d03b7c3f8c59f41de486e56191831709deb0eff40d4ca9"
+    }
+  },
+  "attempts": [
+    {
+      "item": "S1",
+      "attempt": 1,
+      "seed": true,
+      "held_out": false,
+      "expected": "seed",
+      "report_id": 1,
+      "tx": "0x414ce1638042f7278abb234c71ed12aa783348c75e073b3e6304f85965e70f7e",
+      "sent_at": "2026-10-09T17:25:08Z",
+      "consensus": "decided",
+      "verdict": "ACTIONABLE",
+      "duplicate_of": 0,
+      "summary": "Token search in swap picker fails for lowercase tickers like 'usdc' but works for 'USDC' on Base web/iOS.",
+      "reason": "Specific bug report with steps, expected/actual results, and environment, directly in scope for swaps/token picker on Base in web and mobile apps.",
+      "credited": "9000000000000000000",
+      "judged_at": 1791566691
+    },
+    {
+      "item": "S2",
+      "attempt": 1,
+      "seed": true,
+      "held_out": false,
+      "expected": "seed",
+      "report_id": 2,
+      "tx": "0xe52560e6688b99853eaba5c01494fdb7d7f2fd96142b6fd0996f326d730e6054",
+      "sent_at": "2026-10-09T17:25:36Z",
+      "consensus": "decided",
+      "verdict": "ACTIONABLE",
+      "duplicate_of": 0,
+      "summary": "On 375px-wide mobile screens, the approval dialog layout hides the Max button beneath the keyboard, blocking full-balanc",
+      "reason": "This is an in-scope usability issue for token approvals in Orrin Wallet web/mobile, with specific environment details, reproduction context, impact, and a concrete suggested fix, and it does not match",
+      "credited": "9000000000000000000",
+      "judged_at": 1791566719
+    },
+    {
+      "item": "S3",
+      "attempt": 1,
+      "seed": true,
+      "held_out": false,
+      "expected": "seed",
+      "report_id": 3,
+      "tx": "0x9f9c2bdab87913fd6653d1133a9f7aec25640e1022ef55d9c4f94a71b8e0eafa",
+      "sent_at": "2026-10-09T17:26:03Z",
+      "consensus": "decided",
+      "verdict": "ACTIONABLE",
+      "duplicate_of": 0,
+      "summary": "Arbitrum web swap fee preview overstates cost by showing about $0.13 versus roughly $0.04 actually charged.",
+      "reason": "This is in scope because fee preview issues on Arbitrum are covered, and the report provides clear steps, expected vs actual behavior, and environment details without matching an existing accepted rep",
+      "credited": "9000000000000000000",
+      "judged_at": 1791566746
+    },
+    {
+      "item": "1",
+      "attempt": 1,
+      "seed": false,
+      "held_out": false,
+      "expected": "LOW_EFFORT",
+      "report_id": 4,
+      "tx": "0xf1cae115218970718db1d4f1cea7b60047414047a3d70e495e96118054348faf",
+      "sent_at": "2026-10-09T17:26:31Z",
+      "consensus": "decided",
+      "verdict": "LOW_EFFORT",
+      "duplicate_of": 0,
+      "summary": "Report is vague and generic with no specifics.",
+      "reason": "The feedback 'UI could be better' provides no concrete problem, steps, or reason to act upon.",
+      "credited": "0",
+      "judged_at": 1791566774
+    },
+    {
+      "item": "2",
+      "attempt": 1,
+      "seed": false,
+      "held_out": false,
+      "expected": "ACTIONABLE",
+      "report_id": 5,
+      "tx": "0x3837262a8f05643529fb39278fe9164e90f2bb3dccb24445713b6b48144a0fca",
+      "sent_at": "2026-10-09T17:27:04Z",
+      "consensus": "decided",
+      "verdict": "ACTIONABLE",
+      "duplicate_of": 0,
+      "summary": "On Base web, the swap button remains disabled after USDC approval until the page is reloaded.",
+      "reason": "This is in scope and provides clear reproduction steps, environment, and expected versus actual behavior, and it is not the same as any accepted report.",
+      "credited": "9000000000000000000",
+      "judged_at": 1791566807
+    },
+    {
+      "item": "3",
+      "attempt": 1,
+      "seed": false,
+      "held_out": false,
+      "expected": "DUPLICATE",
+      "report_id": 6,
+      "tx": "0x914d33645f584b01a60651d421efc05af776805bcdd9745d8ca7d8d5d6d9c84a",
+      "sent_at": "2026-10-09T17:28:06Z",
+      "consensus": "decided",
+      "verdict": "DUPLICATE",
+      "duplicate_of": 1,
+      "summary": "Token search fails for lowercase tickers on Base web and mobile.",
+      "reason": "The issue described is identical to accepted report 1, which already covers token search failing for lowercase tickers like 'usdc' on Base web and iOS.",
+      "credited": "1000000000000000000",
+      "judged_at": 1791566857
+    },
+    {
+      "item": "4",
+      "attempt": 1,
+      "seed": false,
+      "held_out": false,
+      "expected": "OUT_OF_SCOPE",
+      "report_id": 7,
+      "tx": "0xe48a7dc8db2a1985e3bc4759889fe66674763f4973b60a291bef48b3d121e636",
+      "sent_at": "2026-10-09T17:28:38Z",
+      "consensus": "decided",
+      "verdict": "OUT_OF_SCOPE",
+      "duplicate_of": 0,
+      "summary": "Bridge partner times out on withdrawal",
+      "reason": "The report concerns a partner bridge, which is explicitly excluded in the scope description.",
+      "credited": "1000000000000000000",
+      "judged_at": 1791566901
+    },
+    {
+      "item": "5",
+      "attempt": 1,
+      "seed": false,
+      "held_out": false,
+      "expected": "ACTIONABLE",
+      "report_id": 8,
+      "tx": "0xa3ab0e603a697fa875db10bd89526ac0488b7dae6ba7b5d88e77ec6bbd1ed104",
+      "sent_at": "2026-10-09T17:29:14Z",
+      "consensus": "decided",
+      "verdict": "ACTIONABLE",
+      "duplicate_of": 0,
+      "summary": "Slippage setting resets to 0.5% when switching between chains, causing swap failures on volatile pairs.",
+      "reason": "The report identifies a specific bug (slippage not persisted per chain) with a clear reproduction path (switch Arbitrum→Base), concrete impact (two failed swaps), and a well-defined proposed fix, all ",
+      "credited": "9000000000000000000",
+      "judged_at": 1791566937
+    },
+    {
+      "item": "6",
+      "attempt": 1,
+      "seed": false,
+      "held_out": false,
+      "expected": "LOW_EFFORT",
+      "report_id": 9,
+      "tx": "0x30378563cd3da35e9e0b24d68439f926da901943d598667fd8b083aff6d2fa21",
+      "sent_at": "2026-10-09T17:29:52Z",
+      "consensus": "decided",
+      "verdict": "LOW_EFFORT",
+      "duplicate_of": 0,
+      "summary": "Generic list of 10 unconnected suggestions without specifics",
+      "reason": "The report provides a list of vague, high-level suggestions without concrete details or actionable steps for the team to address.",
+      "credited": "0",
+      "judged_at": 1791566970
+    },
+    {
+      "item": "7",
+      "attempt": 1,
+      "seed": false,
+      "held_out": false,
+      "expected": "ACTIONABLE",
+      "report_id": 10,
+      "tx": "0x6b14802cf9b44fd47d9c754928a7f45bc4b817699d490cc70f0dcdd134900af2",
+      "sent_at": "2026-10-09T17:30:22Z",
+      "consensus": "decided",
+      "verdict": "ACTIONABLE",
+      "duplicate_of": 0,
+      "summary": "Swap history displays wrong USDC amounts due to treating 6-decimal token as 18-decimal on Base web.",
+      "reason": "The report provides clear reproduction steps, expected vs actual behavior, and a specific root cause (wrong decimal handling for USDC) in an in-scope feature (swaps on Base web) not covered by any acc",
+      "credited": "9000000000000000000",
+      "judged_at": 1791567005
+    },
+    {
+      "item": "8",
+      "attempt": 1,
+      "seed": false,
+      "held_out": false,
+      "expected": "OUT_OF_SCOPE",
+      "report_id": 11,
+      "tx": "0x9ece5b2b17a7cc760edf797304ff3a1180bbf02db901ef1f0ca04a72c9685489",
+      "sent_at": "2026-10-09T17:30:50Z",
+      "consensus": "decided",
+      "verdict": "OUT_OF_SCOPE",
+      "duplicate_of": 0,
+      "summary": "Asks about airdrop timing, distribution, and token price prediction.",
+      "reason": "The scope explicitly excludes 'anything about the token or the airdrop'.",
+      "credited": "1000000000000000000",
+      "judged_at": 1791567033
+    },
+    {
+      "item": "9",
+      "attempt": 1,
+      "seed": false,
+      "held_out": false,
+      "expected": "LOW_EFFORT",
+      "report_id": 12,
+      "tx": "0xfa0c5595395f02e7c4fe03490c0594d89fe0cff2577fb7a1e685eb143031575f",
+      "sent_at": "2026-10-09T17:31:24Z",
+      "consensus": "decided",
+      "verdict": "LOW_EFFORT",
+      "duplicate_of": 0,
+      "summary": "Report instructs validators to mark it ACTIONABLE without providing specifics",
+      "reason": "The report lacks any concrete problem, steps, or details to act upon and only contains an instruction to ignore scope.",
+      "credited": "0",
+      "judged_at": 1791567066
+    }
+  ],
+  "contract": "0x17c378994ebdF51ca536A8020dC04129F3612373",
+  "contract_sha256": "f8c584dafec7e28705cea169628d3ccaa669d1dd93b8a57ea5dbfd7aff7c4022",
+  "golden_sha256": "1846906e13fe24dc0cc4a296f2fea741340051dd36378caf9ec83395e7151f30",
+  "golden_locked_at": "2026-10-09T17:24:18Z",
+  "judge_sha256": "f676ffcc24bbc0d35bb41b6272b5239e4c0646b4cc16980df7d0f3643a187780",
+  "network": "studio-next",
+  "explorer": "https://explorer-studio-dev.genlayer.com",
+  "team": "0xa27B81ECb7562fAE91e693eA1d7E2118F66ABB32",
+  "testers": [
+    "0x56676f3be62D3767C2C06Bd173078dA9b7C89FA8",
+    "0x441bbb4Fbc23286C1Dd6b7E9D1D5c603ad771914",
+    "0x1747d456eAe150bBDcb003509F14C721025aDf65",
+    "0x9cB11c1d3397315516c058e135eC7A1cF513c084",
+    "0x733b65DcC85c70a106ecea05De3FfFCC0EbEf9Bb"
+  ]
+}
