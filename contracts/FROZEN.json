@@ -1,0 +1,16 @@
+{
+  "deployments": {
+    "studio-next": {
+      "chain_id": 61997,
+      "deployed_at": "2026-10-09T17:22:07Z",
+      "explorer": "https://explorer-studio-dev.genlayer.com",
+      "rpc": "https://studio-next.genlayer.com/api",
+      "runtime": "py-genlayer:5jycge4q8k23462jtb0b9fyey1s9qz928sz2nbrd9mg4sxqg2qng",
+      "triage": "0x17c378994ebdF51ca536A8020dC04129F3612373",
+      "triage_deployer": "0x367eDF69250C756180B61447D4aCca5fFAbA33ee",
+      "triage_file": "contracts/triage.py",
+      "triage_sha256": "f8c584dafec7e28705cea169628d3ccaa669d1dd93b8a57ea5dbfd7aff7c4022",
+      "triage_tx": "0x064282617397b677a23a70a5590dd54410689fa3d4601a5c8a5380aaf4e8867c"
+    }
+  }
+}
