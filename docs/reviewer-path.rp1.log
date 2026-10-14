@@ -23,3 +23,9 @@ page-report: HTTP 200 shows it  https://triage-genlayer.vercel.app/r/22
 page-export: HTTP 200 shows it  https://triage-genlayer.vercel.app/api/export/3
 page-programs: HTTP 200 shows it  https://triage-genlayer.vercel.app/programs
 waiting 57 min for the trial hour to end
+close: close ok (ACCEPTED) in 8 s   0x2839ea5d1b4f8060f1e23d12e305f65c7bdb59a23cc462bb29e9911966eb3441
+  8.999605785499986 GEN -> 16.999479480249985 GEN; paid 8 GEN, net fee 0.000151305250002823 GEN; difference 25000000000000 wei
+close-again: close refused: this program is already closed (ACCEPTED) in 8 s   0xeeee210ae85dc10e4e9d942187c74047568e19260cd96913e36f96ec7e4264d2
+
+recorded in docs/reviewer-path.studio-next.json (run rp1); not passing: balance-withdraw, balance-close
+exit 0

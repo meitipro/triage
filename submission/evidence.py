@@ -146,14 +146,42 @@ def main() -> int:
             expect = "refused" if step.get("expect") == "refused" else "returned"
             what = step["key"] + (f": {step['refusal']}" if step.get("refusal") else "")
             lines.append(link(what.replace("|", "/"), step["hash"], expect))
-        balances = [s for s in log["steps"] if s["key"].startswith("balance-")]
-        if balances:
-            lines += ["", "Wallets after finality, from each transaction's own fee accounting:", ""]
-            for s in balances:
+        rec_path = ROOT / "docs" / f"reviewer-path.{run}.reconcile.json"
+        if rec_path.exists():
+            rec = json.loads(rec_path.read_text(encoding="utf-8"))
+            lines += [
+                "",
+                f"Both wallets of this run held nothing before the faucet, so each balance is reconciled from zero "
+                f"(`python scripts/reconcile.py {run}`, `docs/reviewer-path.{run}.reconcile.json`): faucet, minus the value "
+                "of every write that returned, plus what the contract paid, minus each transaction's primary fee from its "
+                "own accounting.",
+                "",
+                "| Wallet | Faucet | Sent | Paid by contract | Primary fees (wei) | Expected (wei) | Balance (wei) | Difference |",
+                "|---|---|---|---|---|---|---|---|",
+            ]
+            for who, w in rec["wallets"].items():
                 lines.append(
-                    f"- {s['key'][8:]}: paid {int(s['paid_by_contract']) / 10**18} GEN, wallet {int(s['before']) / 10**18} → "
-                    f"{int(s['after']) / 10**18} GEN, difference from expected {s['difference']} wei"
+                    f"| {who} `{w['address']}` | {int(w['faucet']) / 10**18:g} GEN | {int(w['sent_with_returned_writes']) / 10**18:g} GEN "
+                    f"| {int(w['paid_by_contract']) / 10**18:g} GEN | {w['primary_fees']} | {w['expected']} | {w['balance']} "
+                    f"| **{w['difference']} wei** |"
                 )
+            lines += [
+                "",
+                "The script's own per-transaction check in this run (`balance-withdraw`, `balance-close`) is recorded as not "
+                "passing, each by exactly 25,000,000,000,000 wei: it subtracted the payout's consumed message fee, which Studio "
+                "Next lists in the transaction's accounting and does not take from a wallet that is also the payee. The "
+                "reconciliation above, which leaves that term out, is exact to 0 wei; `web/scripts/reviewer-path.mjs` "
+                "carries the corrected formula for the next run. Nothing on chain differs.",
+            ]
+        state = next((s for s in log["steps"] if s["key"] == "read-program"), None)
+        if state:
+            lines += [
+                "",
+                f"Program {log.get('program_id')} after the close: funded {int(state['funded']) / 10**18:g} GEN, plus "
+                f"{int(state['lost']) / 10**18:g} GEN from a lost stake, equals {int(state['paid']) / 10**18:g} GEN paid to the tester "
+                f"and {int(state['returned']) / 10**18:g} GEN returned to the team, with the pool at {state['pool']} and "
+                f"closed = {state['closed']}. The {int(state['bonuses']) / 10**18:g} GEN bonus is on top, from the team to the tester.",
+            ]
 
     w = walk["ui_walk"]
     lines += [

@@ -73,10 +73,19 @@ Program 3. Every step: `docs/reviewer-path.studio-next.json`.
 | close-early: this program runs until 1791588357 (seconds since the epoch) | refused | [0xd69ce42f…73f6](https://explorer-studio-dev.genlayer.com/tx/0xd69ce42fe42abe52668ec4100211f3e228f84a22657cc7e1fea91423f3a173f6) |
 | withdraw | returned | [0x203da2fa…f896](https://explorer-studio-dev.genlayer.com/tx/0x203da2fa139b146516c626bbdea11f0b7095357dd3f7586a343012d344e9f896) |
 | withdraw-again: nothing to withdraw | refused | [0x194a5b42…92fa](https://explorer-studio-dev.genlayer.com/tx/0x194a5b427d3e3bd1b9c049897a3e98ec841ca0a29e0f74f797b6bf7ff4b292fa) |
+| close | returned | [0x2839ea5d…3441](https://explorer-studio-dev.genlayer.com/tx/0x2839ea5d1b4f8060f1e23d12e305f65c7bdb59a23cc462bb29e9911966eb3441) |
+| close-again: this program is already closed | refused | [0xeeee210a…64d2](https://explorer-studio-dev.genlayer.com/tx/0xeeee210ae85dc10e4e9d942187c74047568e19260cd96913e36f96ec7e4264d2) |
 
-Wallets after finality, from each transaction's own fee accounting:
+Both wallets of this run held nothing before the faucet, so each balance is reconciled from zero (`python scripts/reconcile.py rp1`, `docs/reviewer-path.rp1.reconcile.json`): faucet, minus the value of every write that returned, plus what the contract paid, minus each transaction's primary fee from its own accounting.
 
-- withdraw: paid 5.0 GEN, wallet 17.99952743449998 → 22.99940112949998 GEN, difference from expected 25000000000000 wei
+| Wallet | Faucet | Sent | Paid by contract | Primary fees (wei) | Expected (wei) | Balance (wei) | Difference |
+|---|---|---|---|---|---|---|---|
+| team `0xDBef7739dB38DeF689a85AD32e0397E8B98577cd` | 20 GEN | 11 GEN | 8 GEN | 599147750019761 | 16999400852249980239 | 16999400852249980239 | **0 wei** |
+| tester `0x608438c06e65afa36cD9A3ee0a44be0D9f46853E` | 20 GEN | 2 GEN | 5 GEN | 677498500022584 | 22999322501499977416 | 22999322501499977416 | **0 wei** |
+
+The script's own per-transaction check in this run (`balance-withdraw`, `balance-close`) is recorded as not passing, each by exactly 25,000,000,000,000 wei: it subtracted the payout's consumed message fee, which Studio Next lists in the transaction's accounting and does not take from a wallet that is also the payee. The reconciliation above, which leaves that term out, is exact to 0 wei; `web/scripts/reviewer-path.mjs` carries the corrected formula for the next run. Nothing on chain differs.
+
+Program 3 after the close: funded 10 GEN, plus 1 GEN from a lost stake, equals 3 GEN paid to the tester and 8 GEN returned to the team, with the pool at 0 and closed = True. The 1 GEN bonus is on top, from the team to the tester.
 
 ## Live UI walk, through the deployed site's buttons
 
@@ -95,4 +104,4 @@ Wallet `0x52836a71f5e2bc8A2A0F8f14ff640525f9A34254`, made inside the page. Balan
 | submit #25 from the docs sample | returned | [0x797aef39…f13d](https://explorer-studio-dev.genlayer.com/tx/0x797aef394e47f21cadeb7b293a1a700f989f3382586d9a5a2e8325cb0727f13d) |
 | judge #25 from the docs sample | returned | [0xb44bbe00…8de8](https://explorer-studio-dev.genlayer.com/tx/0xb44bbe0038d8051b6b6deec0793980ec248c88184818b6eb13739c0dd9b88de8) |
 
-50 transactions checked.
+52 transactions checked.

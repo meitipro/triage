@@ -1,0 +1,136 @@
+{
+  "run": "rp1",
+  "wallets": {
+    "team": {
+      "address": "0xDBef7739dB38DeF689a85AD32e0397E8B98577cd",
+      "faucet": "20000000000000000000",
+      "sent_with_returned_writes": "11000000000000000000",
+      "paid_by_contract": "8000000000000000000",
+      "primary_fees": "599147750019761",
+      "message_fee_listed_not_charged": "25000000000000",
+      "expected": "16999400852249980239",
+      "balance": "16999400852249980239",
+      "difference": "0",
+      "transactions": [
+        {
+          "key": "open",
+          "ok": true,
+          "value": "10000000000000000000",
+          "primary_fee": "78636000002823",
+          "message_listed": "0"
+        },
+        {
+          "key": "submit-by-team",
+          "ok": false,
+          "value": "0",
+          "primary_fee": "78628000002823",
+          "message_listed": "0"
+        },
+        {
+          "key": "judge-a",
+          "ok": true,
+          "value": "0",
+          "primary_fee": "79692500002823",
+          "message_listed": "0"
+        },
+        {
+          "key": "bonus",
+          "ok": true,
+          "value": "1000000000000000000",
+          "primary_fee": "78630000002823",
+          "message_listed": "0"
+        },
+        {
+          "key": "close-early",
+          "ok": false,
+          "value": "0",
+          "primary_fee": "78628000002823",
+          "message_listed": "0"
+        },
+        {
+          "key": "close",
+          "ok": true,
+          "value": "0",
+          "primary_fee": "126305250002823",
+          "message_listed": "25000000000000"
+        },
+        {
+          "key": "close-again",
+          "ok": false,
+          "value": "0",
+          "primary_fee": "78628000002823",
+          "message_listed": "0"
+        }
+      ]
+    },
+    "tester": {
+      "address": "0x608438c06e65afa36cD9A3ee0a44be0D9f46853E",
+      "faucet": "20000000000000000000",
+      "sent_with_returned_writes": "2000000000000000000",
+      "paid_by_contract": "5000000000000000000",
+      "primary_fees": "677498500022584",
+      "message_fee_listed_not_charged": "25000000000000",
+      "expected": "22999322501499977416",
+      "balance": "22999322501499977416",
+      "difference": "0",
+      "transactions": [
+        {
+          "key": "submit-wrong-stake",
+          "ok": false,
+          "value": "0",
+          "primary_fee": "78628000002823",
+          "message_listed": "0"
+        },
+        {
+          "key": "submit-a",
+          "ok": true,
+          "value": "1000000000000000000",
+          "primary_fee": "78646250002823",
+          "message_listed": "0"
+        },
+        {
+          "key": "submit-b",
+          "ok": true,
+          "value": "1000000000000000000",
+          "primary_fee": "78638250002823",
+          "message_listed": "0"
+        },
+        {
+          "key": "judge-b-first",
+          "ok": false,
+          "value": "0",
+          "primary_fee": "78628000002823",
+          "message_listed": "0"
+        },
+        {
+          "key": "judge-b",
+          "ok": true,
+          "value": "0",
+          "primary_fee": "79397000002823",
+          "message_listed": "0"
+        },
+        {
+          "key": "bonus-by-tester",
+          "ok": false,
+          "value": "0",
+          "primary_fee": "78628000002823",
+          "message_listed": "0"
+        },
+        {
+          "key": "withdraw",
+          "ok": true,
+          "value": "0",
+          "primary_fee": "126305000002823",
+          "message_listed": "25000000000000"
+        },
+        {
+          "key": "withdraw-again",
+          "ok": false,
+          "value": "0",
+          "primary_fee": "78628000002823",
+          "message_listed": "0"
+        }
+      ]
+    }
+  }
+}
