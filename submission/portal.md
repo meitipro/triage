@@ -7,8 +7,8 @@ Every field below, in the order the form asks. Counts are checked by `submission
 - **Logo:** `submission/triage-icon-512.png` (512 × 512, the site's own mark on a dark ground, safe for a circular crop)
 - **Project name:** Triage - feedback programs that pay for signal, not noise
 - **Primary tag:** Developer Tools
-- **Tag 1:** Bug Bounties
-- **Tag 2:** Quality Review
+- **Tag 1:** Failure Diagnosis
+- **Tag 2:** Contract Testing
 
 ## One-liner
 
