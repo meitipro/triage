@@ -59,7 +59,7 @@ Optional video link: record `submission/demo-script.md` and paste the link here.
 ## Prove the path works
 
 <!-- proof -->
-Fresh wallets on the live site via its own signing code (rp1): program 3 opened, 5 refusals shown as refusals (wrong stake, team filing, judging out of order, bonus by a tester, close before the end), #22 ACTIONABLE, #23 LOW EFFORT, bonus tipped, withdraw paid. A UI walk with an in-page wallet filed #24, judged ACTIONABLE, withdrew; the wallet reconciles to 0 wei. Golden 9/9: triage-genlayer.vercel.app/docs/more/evaluation. Every tx: github.com/meitipro/triage/blob/main/submission/evidence.md
+Two fresh wallets on the live site via its own signing code (rp1): program 3 opened, 5 refusals shown as refusals, #22 ACTIONABLE, #23 LOW EFFORT, bonus tipped, withdraw and close paid; both wallets reconcile to 0 wei. A second walk through the UI with an in-page wallet filed #24, judged and withdrew, also 0 wei. Golden 9/9: triage-genlayer.vercel.app/docs/more/evaluation. Every tx: github.com/meitipro/triage/blob/main/submission/evidence.md
 <!-- end -->
 
 - **Contract link:** https://explorer-studio-dev.genlayer.com/address/0x17c378994ebdF51ca536A8020dC04129F3612373
