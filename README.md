@@ -29,6 +29,16 @@ in-scope reports are paid, while low-effort farming loses its stake.
    `close()`, and the team can tip a bonus on any actionable report.
 5. **Queue.** Actionable reports form the team's queue, exportable as JSON or CSV.
 
+## Milestone 1: the queue reaches the tracker
+
+- **GitHub Issues sync.** A reusable GitHub Action (`.github/actions/triage-sync`) opens one issue per actionable report,
+  read straight from the contract; idempotent, never reopens an issue the team closed. Triage runs it on this repository
+  for program 2: [issues](https://github.com/meitipro/triage/issues?q=label%3Atriage).
+- **Tester leaderboard.** [/testers](https://triage-genlayer.vercel.app/testers) ranks testers by accepted reports and
+  acceptance rate, with a CSV for campaign rewards.
+
+Record and links: [`docs/milestone-1.md`](docs/milestone-1.md).
+
 ## Evaluation, through real consensus
 
 The golden cases of section 9 of the spec were written and locked (sha256 `1846906e…`, 2026-10-09T17:24:18Z, before

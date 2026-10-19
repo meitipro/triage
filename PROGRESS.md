@@ -12,3 +12,4 @@ One line per step, in order.
 - 2026-10-09 Live UI walk with an in-page wallet filed #24 and withdrew; wallet exact to the wei (`docs/ui-walk.studio-next.md`). Its report and the others in the queue were fixed in the next deploy; the docs sample was run as written and filed #25.
 - 2026-10-09 Reviewer path rp1 from fresh accounts to close; both wallets reconcile from zero to 0 wei (`docs/reviewer-path.rp1.reconcile.json`). The script's own two balance checks missed by the 25e12 message-fee term and are recorded as such.
 - 2026-10-14 Vercel project root directory set to `web`, so pushes to main build. `submission/evidence.md` generated from the records, 52 transactions each looked up on the RPC.
+- 2026-10-19 Milestone 1: GitHub Issues sync action and tester leaderboard. Sync ran on this repo: 5 issues opened, closed with the fix commit, a rerun changed nothing, a new on-chain report (#26) became issue #6 (`docs/milestone-1.md`).
