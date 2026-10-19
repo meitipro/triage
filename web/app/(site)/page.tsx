@@ -245,7 +245,7 @@ export default async function Landing() {
             {[
               ['Write a scope', 'Up to 1,200 characters on what you want feedback on, what you exclude, and where security issues go. A new scope means a new program, so testers know the rules cannot move under them.'],
               ['Fund a pool', 'Set a fixed reward per actionable report, the stake, a weekly cap per tester and a duration. Anyone can top the pool up, and lost stakes add to it.'],
-              ['Get a clean queue', 'Only actionable reports reach the queue, newest first, with the duplicates linked and the noise struck through. Export it for your tracker, tip a bonus for an important one, and close the program to take back what is left.'],
+              ['Get a clean queue', 'Only actionable reports reach the queue, newest first, with the duplicates linked and the noise struck through. Sync it to GitHub Issues or export it, rank testers for campaign rewards, tip a bonus for an important one, and close the program to take back what is left.'],
             ].map(([t, d]) => (
               <div key={t} className="c-card pad">
                 <p className="c-h3">{t}</p>

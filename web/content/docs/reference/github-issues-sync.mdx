@@ -1,0 +1,77 @@
+---
+title: Sync the queue to GitHub Issues
+description: A GitHub Action that opens one issue for every actionable report in a program, read straight from the contract.
+---
+
+The queue is what a team works from. The Triage sync puts it where the work happens: every report the validators judged
+ACTIONABLE becomes a GitHub issue in your repository, with the tester's report, the validators' summary, what the tester
+was paid, and links to the report page, the filing and judging transactions and the contract.
+
+It reads the program's queue from the contract itself, with `list_reports(program, "ACTIONABLE", …)`, not from this
+site, so the issues keep coming while the site is down. Nothing runs on a server of ours and no key leaves GitHub: the
+action uses the workflow's own `GITHUB_TOKEN`.
+
+## Add it to a repository
+
+Create `.github/workflows/triage-sync.yml`:
+
+```yaml
+name: Triage queue sync
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: meitipro/triage/.github/actions/triage-sync@main
+        with:
+          program: "2"
+```
+
+Replace `2` with your program's id, the number in `/p/<id>`. The first run opens an issue for every actionable report
+so far; each later run opens only the new ones.
+
+## What a run does
+
+| On chain | On GitHub |
+|---|---|
+| An actionable report with no issue yet | A new issue, labelled `triage` and `triage:bug`, `triage:usability` or `triage:idea` |
+| The team tipped a bonus | The issue's text is updated with the bonus; an issue you closed stays closed |
+| Nothing changed | Nothing is written |
+| A duplicate, out-of-scope or low-effort report | Never an issue: only the queue is synced |
+
+Each issue ends with a hidden marker naming the contract and the report id. That is how a run recognises the issues it
+opened, so it never duplicates one, and never touches an issue it did not open. Closing an issue changes nothing on
+chain: the verdict and the payment were settled when the validators agreed.
+
+The run writes what it did to the workflow's summary page: created, updated, unchanged.
+
+## Inputs
+
+| Input | Default | What it is |
+|---|---|---|
+| `program` | required | The program id |
+| `contract` | the deployed Triage contract | Another deployment's address |
+| `label` | `triage` | Base label; kinds get `<label>:bug`, `<label>:usability`, `<label>:idea` |
+| `dry-run` | `false` | `true` prints what would change and changes nothing |
+| `site`, `explorer`, `rpc` | this site, the Studio Next explorer and RPC | Where links point and reads go |
+| `github-token` | the workflow's token | Needs `issues: write` |
+
+## Tester text in a public tracker
+
+Titles and bodies are testers' text and summaries are a model's. The sync quotes every line of a report, breaks `@`
+mentions so a report cannot ping your team, and escapes anything that could imitate its marker, so one report cannot
+pass itself off as another. The rules are in `.github/actions/triage-sync/lib.mjs` and tested by `lib.test.mjs`.
+
+## Triage runs it on itself
+
+Program 2, "Triage site and docs, public beta", feeds this project's own repository: every actionable report about the
+site became an issue at [github.com/meitipro/triage/issues](https://github.com/meitipro/triage/issues?q=label%3Atriage),
+and each was closed with the commit that fixed it.

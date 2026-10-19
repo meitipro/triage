@@ -1,0 +1,43 @@
+---
+title: Tester leaderboard for campaigns
+description: Testers ranked by accepted reports and acceptance rate, from the contract, with a CSV for reward or points sheets.
+---
+
+Testnet campaigns need a fair way to reward the people who actually tested. The [Testers](/testers) page ranks every
+tester by what the validators decided about their reports, and exports the ranking as CSV.
+
+## How testers are ranked
+
+1. More **actionable** reports.
+2. A higher **acceptance rate**: actionable reports out of judged ones.
+3. Fewer **low-effort** reports.
+4. The earlier **first actionable** report.
+5. The address, so the order never depends on how the rows were read.
+
+A tester who files a flood of generic reports drops on all three counts that matter: each one is judged low effort,
+which lowers the rate and costs the stake. Reports still waiting for the judge count as filed and are shown, but never
+as judged.
+
+**Earned** is the rewards of the tester's actionable reports plus any bonuses. Rates are computed in whole basis points
+and amounts stay in wei; nothing goes through a floating-point number.
+
+## One program or all of them
+
+The page opens on every program, with the evaluation set (the golden cases) set aside. Pick a program to rank only its
+testers; a program page links to its own ranking.
+
+## For a reward sheet
+
+| Request | Returns |
+|---|---|
+| `GET /api/testers` | JSON, every program but the evaluation set |
+| `GET /api/testers?program=2` | JSON, one program |
+| `GET /api/testers?program=2&format=csv` | CSV: rank, tester, actionable, judged, acceptance rate, duplicate, out of scope, low effort, waiting, earned and lost in wei, programs, first actionable time |
+
+The ranking is computed from `list_reports` over every program, read from the contract, by `web/lib/leaderboard.mjs`,
+which `leaderboard.test.mjs` checks.
+
+## What it is not
+
+The leaderboard is the record, not a verdict on a person. It says what validators decided about each report; it does
+not weigh how important a report was. Teams reward importance with bonuses, which the earned column includes.

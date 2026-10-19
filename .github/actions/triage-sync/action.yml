@@ -1,0 +1,55 @@
+name: Triage queue to GitHub Issues
+description: >-
+  Opens one GitHub issue for every actionable report in a Triage program, read straight from the contract on
+  GenLayer Studio Next. Idempotent; updates an issue when a bonus is tipped; never reopens an issue the team closed.
+branding:
+  icon: filter
+  color: green
+
+inputs:
+  program:
+    description: The Triage program id (the number in /p/<id>).
+    required: true
+  contract:
+    description: The Triage contract address.
+    default: "0x17c378994ebdF51ca536A8020dC04129F3612373"
+  rpc:
+    description: GenLayer Studio Next RPC.
+    default: https://studio-next.genlayer.com/api
+  site:
+    description: The Triage site, for report links.
+    default: https://triage-genlayer.vercel.app
+  explorer:
+    description: The explorer, for transaction links.
+    default: https://explorer-studio-dev.genlayer.com
+  label:
+    description: Base label for the issues; kinds get <label>:bug, <label>:usability, <label>:idea.
+    default: triage
+  dry-run:
+    description: "true prints what would change and changes nothing."
+    default: "false"
+  github-token:
+    description: Token with issues write permission.
+    default: ${{ github.token }}
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: "22"
+    - name: Install genlayer-js
+      shell: bash
+      run: npm install --no-save --no-audit --no-fund --prefix "${{ github.action_path }}" genlayer-js@2.0.0-rc.1
+    - name: Sync the queue
+      shell: bash
+      env:
+        TRIAGE_PROGRAM: ${{ inputs.program }}
+        TRIAGE_CONTRACT: ${{ inputs.contract }}
+        TRIAGE_RPC: ${{ inputs.rpc }}
+        TRIAGE_SITE: ${{ inputs.site }}
+        TRIAGE_EXPLORER: ${{ inputs.explorer }}
+        TRIAGE_LABEL: ${{ inputs.label }}
+        TRIAGE_DRY_RUN: ${{ inputs.dry-run }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+      run: node "${{ github.action_path }}/sync.mjs"

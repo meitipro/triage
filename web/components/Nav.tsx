@@ -47,6 +47,7 @@ export function Nav() {
         <Link href="/programs">Programs</Link>
         <Link href="/reports">Reports</Link>
         <Link href="/me">My reports</Link>
+        <Link href="/testers">Testers</Link>
         <Link href="/new">Open a program</Link>
         <Link href="/docs">Docs</Link>
       </nav>

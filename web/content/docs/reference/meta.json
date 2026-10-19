@@ -1,4 +1,11 @@
 {
   "title": "Reference",
-  "pages": ["contract", "queue-export", "addresses", "errors"]
+  "pages": [
+    "contract",
+    "queue-export",
+    "github-issues-sync",
+    "tester-leaderboard",
+    "addresses",
+    "errors"
+  ]
 }

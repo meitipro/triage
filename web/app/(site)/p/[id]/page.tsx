@@ -186,6 +186,9 @@ export default async function ProgramPage({ params, searchParams }: { params: Pr
                 </div>
               ))}
             </dl>
+            <Link href={`/testers?program=${p.id}`} className="c-link block border-t border-[var(--line)] px-5 py-2.5 text-[13.5px]">
+              Testers in this program, ranked →
+            </Link>
           </div>
           {!p.closed && !ended && (
             <div className="flex flex-col gap-1.5">

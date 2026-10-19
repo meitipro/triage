@@ -16,8 +16,8 @@ const root = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace
 const docs = path.join(root, 'content', 'docs');
 
 /** Routes outside /docs that the site serves. Dynamic ones are prefixes. */
-const SITE = ['/', '/programs', '/reports', '/new', '/me', '/llms.txt', '/llms-full.txt'];
-const SITE_PREFIXES = ['/p/', '/r/', '/api/export/', '/#'];
+const SITE = ['/', '/programs', '/reports', '/testers', '/new', '/me', '/llms.txt', '/llms-full.txt'];
+const SITE_PREFIXES = ['/p/', '/r/', '/api/export/', '/api/testers', '/testers?', '/#'];
 
 function walk(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => {

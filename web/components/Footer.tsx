@@ -30,6 +30,7 @@ export function Footer() {
         <div className="flex flex-col gap-2">
           <p className="c-eyebrow">Links</p>
           <Link href="/me" className="c-muted hover:text-[var(--ink)]">My reports</Link>
+          <Link href="/testers" className="c-muted hover:text-[var(--ink)]">Testers</Link>
           <Link href="/docs" className="c-muted hover:text-[var(--ink)]">Docs</Link>
           <Link href="/docs/more/evaluation" className="c-muted hover:text-[var(--ink)]">Evaluation results</Link>
           <a href={REPO_URL} className="c-muted hover:text-[var(--ink)]" target="_blank" rel="noreferrer">GitHub</a>

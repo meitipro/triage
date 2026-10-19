@@ -5,13 +5,15 @@
   "concepts/the-four-labels.mdx": "2026-10-09T21:11:22+03:30",
   "index.mdx": "2026-10-09T21:11:22+03:30",
   "more/evaluation.mdx": "2026-10-09T21:11:22+03:30",
-  "more/faq.mdx": "2026-10-09T21:11:22+03:30",
+  "more/faq.mdx": "2026-10-19T07:33:39.879Z",
   "more/judge-prompt.mdx": "2026-10-09T21:11:22+03:30",
   "more/limitations.mdx": "2026-10-09T21:11:22+03:30",
-  "open-a-program.mdx": "2026-10-09T21:11:22+03:30",
-  "quickstart.mdx": "2026-10-09T22:31:27.317Z",
+  "open-a-program.mdx": "2026-10-19T07:33:39.879Z",
+  "quickstart.mdx": "2026-10-10T02:02:05+03:30",
   "reference/addresses.mdx": "2026-10-09T21:11:22+03:30",
   "reference/contract.mdx": "2026-10-09T21:11:22+03:30",
   "reference/errors.mdx": "2026-10-09T21:11:22+03:30",
-  "reference/queue-export.mdx": "2026-10-09T21:11:22+03:30"
+  "reference/github-issues-sync.mdx": "2026-10-19T07:33:39.879Z",
+  "reference/queue-export.mdx": "2026-10-19T07:33:39.879Z",
+  "reference/tester-leaderboard.mdx": "2026-10-19T07:33:39.879Z"
 }

@@ -1,0 +1,40 @@
+name: Triage queue sync
+
+# Triage's own feedback program (program 2, "Triage site and docs, public beta") feeds this repository's issues:
+# every report the validators judged ACTIONABLE becomes an issue, and the team closes it with the fix.
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: "true prints the plan and changes nothing"
+        default: "false"
+
+permissions:
+  issues: write
+  contents: read
+
+concurrency:
+  group: triage-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/triage-sync
+        with:
+          program: "2"
+          dry-run: ${{ github.event.inputs.dry-run || 'false' }}
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --test .github/actions/triage-sync/lib.test.mjs web/lib/leaderboard.test.mjs
